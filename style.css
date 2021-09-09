@@ -16,7 +16,7 @@ body {
 }
 
 .content {
-    margin: 10px;
+    margin: 10px 10px 0 10px;
     display: flex;
 }
 
@@ -149,7 +149,7 @@ span.title {
 .right-col {
     flex-grow: 1;
     margin: 0 10px;
-    padding: 1% 0;
+    padding: 1% 0 0 0;
     /* display: flex; */
     display: none;
     flex-flow: column nowrap;
@@ -307,18 +307,48 @@ span.title {
 }
 .main-table {
     display: flex;
-    justify-content: center;
+    flex-flow: row wrap;
+    justify-content: flex-start;
     margin: 15px 0;
     padding: 0 1vw;
+    position: relative;
+}
+.main-table-title {
+    width: 100%;
+    height: 59px;
+    display: flex;
+    flex-flow: column wrap;
+    position: absolute;
+    padding-right: 3vw;
+}
+.main-table-content {
+    width: 100%;
+    max-height: calc(100vh - 1vw - 308px);
+    overflow-y: auto;
+    margin-top: 58px;
+    display: flex;
+    flex-flow: row nowrap;
+}
+/* scrollbar */
+.main-table-content::-webkit-scrollbar {
+    width: 10px;
+}
+.main-table-content::-webkit-scrollbar-track {
+    background-color: #ededf3;
+    border-radius: 2em;
+}
+.main-table-content::-webkit-scrollbar-thumb {
+    background-color: #bcbcd2;
+    border-radius: 2em;
+}
+.e {
+    min-height: 58px;
+    width: 10%;
 }
 .main-customer {
     display: flex;
     flex-flow: column nowrap;
     width: 10%;
-}
-.e {
-    height: 58px;
-    min-height: 58px;
 }
 .table-title {
     display: flex;
@@ -364,8 +394,13 @@ span.title {
 .table-month {
     display: flex;
     align-items: center;
+    width: 90%;
     height: auto;
 }
+.table-month {
+    border-bottom: 1px solid #d0d0d0;
+}
+
 .table-year > div {
     font-size: 20px;
     font-family: 'Archivo Black', sans-serif;
