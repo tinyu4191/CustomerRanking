@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>個人戰情室使用率</title>
+        <link rel="stylesheet" href="usage.css" />
+    </head>
+    <body>
+        <div class="header">
+            <span class="title">個人戰情室使用率</span>
+            <div class="tracking-date">資料截至 XXXX/XX/XX XX:XX:XX</div>
+        </div>
+        <div class="container">
+            <div class="left-block">
+                <table class="table-count-weekly"></table>
+                <div class="chart-count-weekly"></div>
+            </div>
+            <div class="right-block">
+                <div class="rank">
+                    <div class="rank-header cqe-1">
+                        <div class="logo-rank img-1"></div>
+                        <div class="rank-dept">CQE一處</div>
+                        <div class="dept-tag-list">
+                            <div class="dept-tag">CQ1</div>
+                            <div class="dept-tag">CQ2</div>
+                            <div class="dept-tag">CQ3</div>
+                            <div class="dept-tag">AA</div>
+                        </div>
+                    </div>
+                    <div class="rank-content">
+                        <div class="rank-item">
+                            <div class="item-header rank-1">1st</div>
+                            <div class="person-name">李欣臨</div>
+                            <div class="person-count">326<span class="times">次</span></div>
+                        </div>
+                        <div class="rank-item">
+                            <div class="item-header rank-2">2nd</div>
+                            <div class="person-name">黃宏誌</div>
+                            <div class="person-count">257<span class="times">次</span></div>
+                        </div>
+                        <div class="rank-item">
+                            <div class="item-header rank-3">3rd</div>
+                            <div class="person-name">黃俊良</div>
+                            <div class="person-count">250<span class="times">次</span></div>
+                        </div>
+                        <div class="rank-item">
+                            <div class="item-header rank-3">4th</div>
+                            <div class="person-name">胡雅晶</div>
+                            <div class="person-count">134<span class="times">次</span></div>
+                        </div>
+                        <div class="rank-item">
+                            <div class="item-header rank-3">5th</div>
+                            <div class="person-name">方嘉進</div>
+                            <div class="person-count">123<span class="times">次</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- jQuery -->
+        <script src="http://tnvqis03/Dashboard_Template/vendors/jquery/dist/jquery.min.js"></script>
+        <!-- ECharts -->
+        <script src="./kit/echarts-5.1.1/dist/echarts.min.js"></script>
+
+        <script src="./usage.js"></script>
+    </body>
+</html>

@@ -1,0 +1,151 @@
+.button-tv {
+    width: 200px;
+    height: 100px;
+    background-color: #007bff;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    overflow: hidden;
+    position: relative;
+}
+.button-title-tv {
+    position: absolute;
+    left: -2%;
+    bottom: -18%;
+    color: white;
+    font-size: 54px;
+    font-family: 'Archivo Black', sans-serif;
+    opacity: 0.7;
+}
+.logo-tv {
+    flex: 0 0 90px;
+    height: 100px;
+    background-image: url('./icon/television.png');
+    background-size: cover;
+    transform: rotate(4deg);
+}
+.img-1 {
+    filter: invert(100%);
+}
+
+/* rank */
+.rank-block {
+    width: 450px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+.rank {
+    margin-top: 20px;
+    /* outline: 3px solid lime; */
+    width: 200px;
+    height: auto;
+    display: flex;
+    flex-flow: column nowrap;
+}
+.rank-header {
+    width: 100%;
+    height: 50px;
+    background-color: #f7b039;
+    border-radius: 10px 10px 0 0;
+    box-shadow: inset -2px -2px 3px 1px #c38b2d;
+    box-shadow: 2px 1px 2px 1px #d0d0d0;
+    z-index: 1;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+.cqe-1 {
+    background-color: #007bff;
+}
+.cqe-2 {
+    background-color: #fac937;
+}
+.cqe-3 {
+    background-color: #28a745;
+}
+.aa {
+    background-color: #dc3545;
+}
+.logo-rank {
+    flex: 0 0 50px;
+    background-image: url('./icon/ranking.png');
+    background-size: cover;
+    transform: scale(0.6);
+    opacity: 0.6;
+}
+.rank-dept {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    font-weight: bolder;
+    letter-spacing: 2px;
+    font-size: 18px;
+}
+.rank-content {
+    background-color: #eee3d1;
+    height: auto;
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 5px 0;
+    box-shadow: 2px 2px 2px 1px #d0d0d0;
+}
+.rank-item {
+    width: 100%;
+    height: 40px;
+    background-color: #f7ffff;
+    box-shadow: inset 0px 0px 2px 1px #d0d0d0;
+    margin: 2px 0;
+    border-radius: 3px;
+    overflow: hidden;
+    display: flex;
+    flex-flow: row nowrap;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 8px;
+    font-weight: bolder;
+}
+.item-header {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.rank-1 {
+    background: linear-gradient(0deg, #de9d2c 20%, #f7b441 70%);
+    box-shadow: inset 0px 0px 3px 1px #c38b2d;
+}
+.rank-2 {
+    background: linear-gradient(0deg, #b0adad 10%, #ececec 90%);
+    box-shadow: inset 0px 0px 3px 1px #b9b9b9;
+}
+.rank-3 {
+    background: linear-gradient(0deg, #ba6f54 20%, #d18164 70%);
+    box-shadow: inset 0px 0px 3px 1px #9e614b;
+}
+.person-name {
+    font-size: 14px;
+    letter-spacing: 2px;
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #4e4c4d;
+}
+.person-count {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #4e4c4d;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0 10px;
+}
+.times {
+    font-size: 5px;
+}

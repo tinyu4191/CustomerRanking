@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .chart {
+                display: flex;
+                align-items: stretch;
+                height: 50vh;
+                outline: 3px solid steelblue;
+                width: 60%;
+            }
+            .chart-oba-last-year {
+                width: 30%;
+                border-right: 1px dashed #d0d0d0;
+            }
+            .chart-oba-monthly {
+                width: 70%;
+            }
+            .test {
+                height: 50vh;
+                width: 60%;
+                outline: 3px solid tomato;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="chart">
+            <div class="chart-oba-last-year"></div>
+            <div class="chart-oba-monthly"></div>
+        </div>
+        <div class="test"></div>
+        <script src="./kit/echarts-5.1.1/dist/echarts.min.js"></script>
+        <script>
+            const chartObaLastYear = document.querySelector('.chart-oba-last-year')
+            const chartObaMonthly = document.querySelector('.chart-oba-monthly')
+            const test = document.querySelector('.test')
+
+            // paintChartObaLastyear(chartObaLastYear)
+            // paintChartObaMonthly(chartObaMonthly)
+            paintChartOba(test)
+
+            function paintChartObaLastyear(dom) {
+                let myChart = echarts.init(dom)
+                let option
+
+                option = {
+                    grid: {
+                        top: '12%',
+                        right: '0%',
+                        bottom: '10%',
+                        left: '50%',
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['2020月均'],
+                    },
+                    yAxis: [
+                        {
+                            type: 'value',
+                            min: -1,
+                            max: 15,
+                            interval: 2,
+                            name: 'Rate(%)',
+                            axisLabel: {
+                                formatter: function (value, index) {
+                                    return `${value.toFixed(2)}%`
+                                },
+                            },
+                        },
+                        {
+                            type: 'value',
+                            min: 0,
+                            max: 40,
+                            interval: 5,
+                            axisLabel: {
+                                formatter: function (value, index) {
+                                    return `NT$ ${value.toFixed(1)}M`
+                                },
+                            },
+                        },
+                    ],
+                    series: [
+                        {
+                            stack: 'lastyear',
+                            data: [12.3],
+                            type: 'bar',
+                            yAxisIndex: 1,
+                            barWidth: 40,
+                            itemStyle: { color: '#CC99FF' },
+                            label: {
+                                color: '#7C817A',
+                                show: true,
+                                formatter: `NT$ {c}M`,
+                            },
+                        },
+                        {
+                            stack: 'lastyear',
+                            data: [19.8],
+                            type: 'bar',
+                            yAxisIndex: 1,
+                            itemStyle: { color: '#CCFF99' },
+                            label: {
+                                color: '#4DC587',
+                                show: true,
+                                formatter: `NT$ {c}M`,
+                            },
+                        },
+                        {
+                            data: [10.1],
+                            type: 'line',
+                            yAxisIndex: 0,
+                            symbolSize: 10,
+                            symbol: 'diamond',
+                            itemStyle: { color: '#0000CC' },
+                            label: {
+                                show: true,
+                                formatter: `{c}%`,
+                            },
+                        },
+                    ],
+                }
+
+                myChart.setOption(option)
+            }
+
+            function paintChartObaMonthly(dom) {
+                let myChart = echarts.init(dom)
+                let option
+
+                option = {
+                    title: {
+                        text: 'OBA Sorting Rate & CoPQ_7 Month(Non AERB)',
+                        left: '5%',
+                    },
+                    grid: {
+                        top: '12%',
+                        right: '15%',
+                        bottom: '10%',
+                        left: '0%',
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                    },
+                    yAxis: [
+                        {
+                            show: false,
+                            type: 'value',
+                            min: -1,
+                            max: 15,
+                            interval: 2,
+                            name: 'Rate(%)',
+                            axisLabel: {
+                                formatter: function (value, index) {
+                                    return `${value.toFixed(2)}%`
+                                },
+                            },
+                        },
+                        {
+                            type: 'value',
+                            min: 0,
+                            max: 40,
+                            interval: 5,
+                            axisLabel: {
+                                formatter: function (value, index) {
+                                    return `NT$ ${value.toFixed(1)}M`
+                                },
+                            },
+                        },
+                    ],
+                    series: [
+                        {
+                            stack: 'lastyear',
+                            data: [3.6, 5.2, 5.3, 3.2, 3.5, 2.8],
+                            type: 'bar',
+                            yAxisIndex: 1,
+                            barWidth: 40,
+                            itemStyle: { color: '#CC99FF' },
+                            label: {
+                                color: '#7C817A',
+                                show: true,
+                                formatter: `NT$ {c}M`,
+                            },
+                        },
+                        {
+                            stack: 'lastyear',
+                            data: [3.8, 4.6, 4.9, 2.2, 4.3, 5.1],
+                            type: 'bar',
+                            yAxisIndex: 1,
+                            itemStyle: { color: '#CCFF99' },
+                            label: {
+                                color: '#4DC587',
+                                show: true,
+                                formatter: `NT$ {c}M`,
+                            },
+                        },
+                        {
+                            data: [3.74, 4.92, 5.38, 3.45, 2.99, 2.87],
+                            type: 'line',
+                            yAxisIndex: 0,
+                            symbolSize: 10,
+                            symbol: 'diamond',
+                            itemStyle: { color: '#0000CC' },
+                            label: {
+                                show: true,
+                                formatter: `{c}%`,
+                            },
+                        },
+                        {
+                            data: [7.8, 7.8, 7.8, 7.8, 7.8, 7.8],
+                            type: 'line',
+                            yAxisIndex: 0,
+                            symbolSize: 0,
+                            symbol: 'diamond',
+                            itemStyle: { color: 'red' },
+                        },
+                    ],
+                }
+
+                myChart.setOption(option)
+            }
+
+            function paintChartOba(dom1, dom2) {
+                const mychart1 = echarts.init(dom1)
+                // const mychart2 = echarts.init(dom2)
+
+                let option1
+
+                option1 = {
+                    grid: [{ right: '80%' }, { left: '20%' }],
+                    legend: {},
+                    xAxis: [
+                        {
+                            gridIndex: 0,
+                            type: 'category',
+                            data: ['2020月均'],
+                        },
+                        {
+                            gridIndex: 1,
+                            type: 'category',
+                            data: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                        },
+                    ],
+                    yAxis: [
+                        {
+                            gridIndex: 0,
+                            type: 'value',
+                            min: -1,
+                            max: 15,
+                            interval: 2,
+                            name: 'Rate(%)',
+                            axisLabel: {
+                                formatter: function (value, index) {
+                                    return `${value.toFixed(2)}%`
+                                },
+                            },
+                        },
+                        {
+                            gridIndex: 0,
+                            type: 'value',
+                            show: false,
+                            min: 0,
+                            max: 40,
+                            interval: 5,
+                            axisLabel: {
+                                formatter: function (value, index) {
+                                    return `NT$ ${value.toFixed(1)}M`
+                                },
+                            },
+                        },
+                        {
+                            gridIndex: 1,
+                            type: 'value',
+                            show: false,
+                            min: -1,
+                            max: 15,
+                            interval: 2,
+                            name: 'Rate(%)',
+                            axisLabel: {
+                                formatter: function (value, index) {
+                                    return `${value.toFixed(2)}%`
+                                },
+                            },
+                        },
+                        {
+                            gridIndex: 1,
+                            type: 'value',
+                            min: 0,
+                            max: 40,
+                            interval: 5,
+                            axisLabel: {
+                                formatter: function (value, index) {
+                                    return `NT$ ${value.toFixed(1)}M`
+                                },
+                            },
+                        },
+                    ],
+                    series: [
+                        {
+                            name: '檢驗勞務費',
+                            stack: 'lastyear',
+                            data: [12.3],
+                            type: 'bar',
+                            yAxisIndex: 1,
+                            xAxisIndex: 0,
+                            barWidth: 40,
+                            itemStyle: { color: '#CC99FF' },
+                            label: {
+                                color: '#7C817A',
+                                show: true,
+                                formatter: `NT$ {c}M`,
+                            },
+                        },
+                        {
+                            name: '返品處理費',
+                            stack: 'lastyear',
+                            data: [19.8],
+                            type: 'bar',
+                            yAxisIndex: 1,
+                            xAxisIndex: 0,
+                            itemStyle: { color: '#CCFF99' },
+                            label: {
+                                color: '#4DC587',
+                                show: true,
+                                formatter: `NT$ {c}M`,
+                            },
+                        },
+                        {
+                            name: 'OBA Sorting Rate',
+                            data: [10.1],
+                            type: 'line',
+                            yAxisIndex: 0,
+                            xAxisIndex: 0,
+                            symbolSize: 10,
+                            symbol: 'diamond',
+                            itemStyle: { color: '#0000CC' },
+                            label: {
+                                show: true,
+                                formatter: `{c}%`,
+                            },
+                        },
+                        {
+                            name: '檢驗勞務費',
+                            stack: 'lastyear',
+                            data: [3.6, 5.2, 5.3, 3.2, 3.5, 2.8],
+                            type: 'bar',
+                            yAxisIndex: 3,
+                            xAxisIndex: 1,
+                            barWidth: 40,
+                            itemStyle: { color: '#CC99FF' },
+                            label: {
+                                color: '#7C817A',
+                                show: true,
+                                formatter: `NT$ {c}M`,
+                            },
+                        },
+                        {
+                            name: '返品處理費',
+                            stack: 'lastyear',
+                            data: [3.8, 4.6, 4.9, 2.2, 4.3, 5.1],
+                            type: 'bar',
+                            yAxisIndex: 3,
+                            xAxisIndex: 1,
+                            itemStyle: { color: '#CCFF99' },
+                            label: {
+                                color: '#4DC587',
+                                show: true,
+                                formatter: `NT$ {c}M`,
+                            },
+                        },
+                        {
+                            name: 'OBA Sorting Rate',
+                            data: [3.74, 4.92, 5.38, 3.45, 2.99, 2.87],
+                            type: 'line',
+                            yAxisIndex: 2,
+                            xAxisIndex: 1,
+                            symbolSize: 10,
+                            symbol: 'diamond',
+                            itemStyle: { color: '#0000CC' },
+                            label: {
+                                show: true,
+                                formatter: `{c}%`,
+                            },
+                        },
+                        {
+                            name: 'OBA Sorting Rate Target',
+                            data: [7.8, 7.8, 7.8, 7.8, 7.8, 7.8],
+                            type: 'line',
+                            yAxisIndex: 2,
+                            xAxisIndex: 1,
+                            symbolSize: 0,
+                            symbol: 'diamond',
+                            itemStyle: { color: 'red' },
+                        },
+                    ],
+                }
+
+                let option2
+
+                option2 = {
+                    grid: {
+                        top: '15%',
+                        right: '18%',
+                        bottom: '15%',
+                        left: '0%',
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                    },
+                    yAxis: [
+                        {
+                            show: false,
+                            type: 'value',
+                            min: -1,
+                            max: 15,
+                            interval: 2,
+                            name: 'Rate(%)',
+                            axisLabel: {
+                                formatter: function (value, index) {
+                                    return `${value.toFixed(2)}%`
+                                },
+                            },
+                        },
+                        {
+                            type: 'value',
+                            min: 0,
+                            max: 40,
+                            interval: 5,
+                            axisLabel: {
+                                formatter: function (value, index) {
+                                    return `NT$ ${value.toFixed(1)}M`
+                                },
+                            },
+                        },
+                    ],
+                    legend: {
+                        left: 'left',
+                        bottom: 'bottom',
+                        show: true,
+                    },
+                    series: [],
+                }
+
+                mychart1.setOption(option1)
+                // mychart1.setOption(option2)
+            }
+        </script>
+    </body>
+</html>

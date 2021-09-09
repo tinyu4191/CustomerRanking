@@ -1,0 +1,220 @@
+/* title */
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.header {
+    width: 100%;
+    height: 100px;
+    background-color: #2a3f54;
+    font-size: 48px;
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+}
+.title {
+    margin-left: 3vw;
+}
+.tracking-date {
+    position: absolute;
+    font-size: 14px;
+    bottom: 1vw;
+    right: 5vw;
+}
+/* container */
+.container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 2vw;
+}
+/* left-block */
+.left-block {
+    width: 60%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.table-count-weekly {
+    width: 80%;
+    height: 250px;
+    border-collapse: collapse;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 2px 1px 2px 1px #d0d0d0;
+}
+th,
+td {
+    text-align: center;
+    padding: 10px 0;
+}
+tbody tr:hover {
+    background-color: #f0f0f0;
+}
+th {
+    background-color: #4472c4;
+    color: white;
+}
+.table-count-weekly tr + tr {
+    border-top: 2px solid #d0d0d0;
+}
+.chart-count-weekly {
+    width: 80%;
+    height: calc(100vh - 350px - 6vw);
+    box-shadow: 2px 1px 2px 1px #d0d0d0;
+    margin: 2vw 0;
+}
+/* right-block */
+.right-block {
+    width: 450px;
+    height: calc(100vh - 100px - 2vw);
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    overflow: auto;
+}
+.rank {
+    /* outline: 3px solid lime; */
+    width: 90%;
+    height: auto;
+    display: flex;
+    flex-flow: column nowrap;
+}
+.rank-header {
+    width: 100%;
+    height: 50px;
+    background-color: #f7b039;
+    border-radius: 10px 10px 0 0;
+    box-shadow: inset -2px -2px 3px 1px #c38b2d;
+    box-shadow: 2px 1px 2px 1px #d0d0d0;
+    z-index: 1;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+}
+.cqe-1 {
+    background-color: #007bff;
+}
+.cqe-2 {
+    background-color: #fac937;
+}
+.cqe-3 {
+    background-color: #28a745;
+}
+.aa {
+    background-color: #dc3545;
+}
+.logo-rank {
+    flex: 0 0 50px;
+    background-image: url('./icon/ranking.png');
+    background-size: cover;
+    transform: scale(0.6);
+    opacity: 0.6;
+}
+.img-1 {
+    filter: invert(100%);
+}
+.rank-dept {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bolder;
+    letter-spacing: 2px;
+    font-size: 18px;
+}
+.dept-tag-list {
+    display: flex;
+    flex: auto;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 20px;
+}
+.dept-tag {
+    height: 30px;
+    width: 30px;
+    border: 1px solid white;
+    color: white;
+    border-radius: 99em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 3px;
+    font-size: 5px;
+    filter: brightness(0.7);
+    cursor: pointer;
+}
+.dept-tag:hover {
+    filter: brightness(1);
+}
+.rank-content {
+    background-color: #eee3d1;
+    height: auto;
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 5px 0;
+    box-shadow: 2px 2px 2px 1px #d0d0d0;
+}
+.rank-item {
+    width: 100%;
+    height: 40px;
+    background-color: #f7ffff;
+    box-shadow: inset 0px 0px 2px 1px #d0d0d0;
+    margin: 2px 0;
+    border-radius: 3px;
+    overflow: hidden;
+    display: flex;
+    flex-flow: row nowrap;
+    font-size: 1vw;
+    font-weight: bolder;
+}
+.item-header {
+    font-size: 0.6vw;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.rank-1 {
+    background: linear-gradient(0deg, #de9d2c 20%, #f7b441 70%);
+    box-shadow: inset 0px 0px 3px 1px #c38b2d;
+}
+.rank-2 {
+    background: linear-gradient(0deg, #b0adad 10%, #ececec 90%);
+    box-shadow: inset 0px 0px 3px 1px #b9b9b9;
+}
+.rank-3 {
+    background: linear-gradient(0deg, #ba6f54 20%, #d18164 70%);
+    box-shadow: inset 0px 0px 3px 1px #9e614b;
+}
+.person-name {
+    letter-spacing: 2px;
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #4e4c4d;
+}
+.person-count {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #4e4c4d;
+    display: flex;
+    justify-content: center;
+    padding: 0 10px;
+}
+.times {
+    margin: 1vw;
+    font-size: 5px;
+}

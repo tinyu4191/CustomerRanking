@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Customer Ranking 客戶排名</title>
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="./kit/bootstrap-5.0.2-dist/css/bootstrap.min.css" />
+        <!-- Font Awesome -->
+        <link href="./kit/fontawesome-free-5.15.4-web/css/all.css" rel="stylesheet" />
+        <!-- Google font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bungee&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div id="main">
+            <div class="content">
+                <div class="left-col">
+                    <div class="title-logo" title="Index">
+                        <span class="logo"><i class="far fa-handshake"></i></span>
+                        <span class="title">客戶排名達成率</span>
+                    </div>
+                    <div class="left-bar">
+                        <ul class="nav-bar">
+                            <li class="list-content">Overview</li>
+                            <li class="list-content">TV</li>
+                            <li class="list-content">ITI</li>
+                            <li class="list-content">MD</li>
+                            <li class="list-content">AA</li>
+                        </ul>
+                    </div>
+                    <div class="left-footer"></div>
+                </div>
+                <!-- index -->
+                <div class="index">
+                    <div class="index-title">
+                        <span class="big-title">客戶排名達標率</span>
+                        <span>Compliance</span>
+                        <span>Rate of</span>
+                        <span>Customer Ranking</span>
+                    </div>
+                    <div class="index-image">
+                        <img src="./images/index-image.png" />
+                    </div>
+                </div>
+                <!-- right-col -->
+                <div class="right-col">
+                    <div class="rate-head">
+                        <div class="rate-start">
+                            <div class="rate-block">
+                                <span class="block-title">重要客戶排名達標率預估</span>
+                                <div class="block-body">
+                                    <div class="block-month-year">
+                                        <span class="block-this-year">2021</span>
+                                        <span class="block-this-month" style="letter-spacing: 0.6vw">JUL</span>
+                                    </div>
+                                    <div class="block-content">
+                                        <span class="rank-rate">60%</span
+                                        ><span class="rank-description">XX out of XX</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rate-middle"></div>
+                        <div class="rate-end"><span id="rate-bu">TV</span></div>
+                    </div>
+                    <div class="overview-content">
+                        <div class="chart-block">
+                            <div class="chart-title">
+                                <span>重要客戶排明年度達標率</span>
+                                <span>Annual Achievement Rate</span>
+                            </div>
+                            <div class="selector-box">
+                                <div>
+                                    <span class="text-selector">BU :</span>
+                                    <select name="" id="selectorBU"></select>
+                                </div>
+                                <div>
+                                    <span class="text-selector">Application :</span>
+                                    <select name="" id="selectorApp"></select>
+                                </div>
+                            </div>
+                            <div class="chart chart-annual"></div>
+                            <div class="chart-target">Year 2021 Goal 75%</div>
+                        </div>
+                        <div class="chart-block">
+                            <div class="chart-title">
+                                <span>個產品別客戶前兩名綠燈比例</span>
+                                <span>Product Achievement Rate</span>
+                            </div>
+                            <div class="chart chart-product"></div>
+                        </div>
+                    </div>
+                    <div class="rate-content">
+                        <div class="rate-main">
+                            <div class="main-title">
+                                <span>重要客戶排名達標率</span><br /><span>Annual Achievement Rate</span>
+                            </div>
+                            <div class="main-table">
+                                <div class="main-customer">
+                                    <div class="e"></div>
+                                    <div class="table-title">
+                                        <div class="bu-title">
+                                            <div>TV</div>
+                                        </div>
+                                        <div class="customer" id="rank-customer">
+                                            <div>Samsung</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="main-middle">
+                                    <div class="table-year">
+                                        <div class="last-year">2020</div>
+                                        <div class="this-year">2021</div>
+                                    </div>
+                                    <div class="table-month">
+                                        <div>JAN</div>
+                                        <div>FEB</div>
+                                        <div>MAR</div>
+                                        <div>APR</div>
+                                        <div>MAY</div>
+                                        <div>JUN</div>
+                                        <div>JUL</div>
+                                        <div>AUG</div>
+                                        <div>SEP</div>
+                                        <div>OCT</div>
+                                        <div>NOV</div>
+                                        <div>DEC</div>
+                                        <div>JAN</div>
+                                        <div>FEB</div>
+                                        <div>MAR</div>
+                                        <div>APR</div>
+                                        <div>MAY</div>
+                                        <div>JUN</div>
+                                        <div>JUL</div>
+                                        <div>AUG</div>
+                                        <div>SEP</div>
+                                        <div>OCT</div>
+                                        <div>NOV</div>
+                                        <div>DEC</div>
+                                    </div>
+                                    <div id="table-rank"></div>
+                                </div>
+                                <div class="main-end">
+                                    <div class="e"></div>
+                                    <div class="editor">
+                                        <div class="flex-center-center"><i class="fas fa-edit"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal -->
+        <div id="mainModal" class="modal" tabindex="-1">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap -->
+        <script src="./kit/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Font Awesome -->
+        <script src="./kit/fontawesome-free-5.15.4-web/js/all.min.js"></script>
+        <!-- ECharts -->
+        <script src="./kit/echarts-5.1.1/dist/echarts.min.js"></script>
+        <!-- axios -->
+        <script src="./kit/axios-master/dist/axios.min.js"></script>
+        <!-- QS -->
+        <script src="./kit/qs-master/dist/qs.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>

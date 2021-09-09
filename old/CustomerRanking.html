@@ -1,0 +1,1581 @@
+﻿<!doctype html>
+<html lang="en">
+<META HTTP-EQUIV="EXPIRES" CONTENT="0">
+<!-- 設定成馬上就過期 -->
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+<!-- 與第一行是同樣的作用 -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META HTTP-EQUIV="EXPIRES" CONTENT="0">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=deviITI-width, initial-scale=1">
+
+<link rel="icon" href="images/QM.ico" type="image/ico">
+<title>Innolux CQE | </title>
+<link href="vendors/bootstrap.min.css" rel="stylesheet">
+<link href="vendors/font-awesome.min.css" rel="stylesheet">
+<link href="vendors/nprogress.css" rel="stylesheet">
+<link href="vendors/green.css" rel="stylesheet">
+<link href="vendors/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+<link href="vendors/jqvmap.min.css" rel="stylesheet">
+<link href="vendors/daterangepicker.css" rel="stylesheet">
+<link href="vendors/custom.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/jquery-ui.min.css">
+<script src="js/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="jqueryui/style.css">
+
+
+<!-- 引入 echarts.js -->
+<!-- <script src="/js/echarts.min.js"></script> -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+	.CR{
+		border: 1px solid white;
+		border-collapse: collapse;
+		font-size:10px;
+		background:rgb(79, 13, 105);
+	}
+</style>
+
+<head>
+	<h3 style="color:White;" id="totalRate"><i>客戶排名達標率預估</i></h3>
+</head>
+
+<body>
+	<ul class="nav nav nav-tabs bar_tabs nav-pills" id="myTab" role="tablist">
+		<li class="nav-item">
+			<a class="nav-link active" id="Annual-tab" data-toggle="tab" href="#Annual" role="tab" aria-controls="Annual"
+				aria-selected="false">Annual Achievement Rate</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="KPI-tab" data-toggle="tab" href="#KPI" role="tab" aria-controls="KPI"
+				aria-selected="false">Product Achievement Rate</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link " id="TV-tab" data-toggle="tab" href="#TV" role="tab" aria-controls="TV"
+				aria-selected="true">TV Ranking</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="ITI-tab" data-toggle="tab" href="#ITI" role="tab" aria-controls="ITI"
+				aria-selected="false">ITI Ranking</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="MD-tab" data-toggle="tab" href="#MD" role="tab" aria-controls="MD"
+				aria-selected="false">MD Ranking</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="AA-tab" data-toggle="tab" href="#AA" role="tab" aria-controls="AA"
+				aria-selected="false">AA Ranking</a>
+		</li>
+
+	</ul>
+	<div class="tab-content" id="myTabContent">
+		<!-- TV Tab -->
+		<div class="tab-pane fade " id="TV" role="tabpanel" aria-labelledby="TV-tab">
+			<div class="row">
+				<div class="col-md-12 col-sm-12 ">
+					<div class="x_panel tile fixed_height_320" style="height:100%">
+						<div class="x_title">
+							<h3 id="rateTV" style="background:	#000079;color:White;text-align:ITInter;" align="center">TV 客戶排名</h3>
+							<div class="clearfix"></div>
+						</div>
+						<div class="x_content">
+							<table style="border:2px #cccccc solid;" cellpadding="10" border='1' width="100%" id="TVRanking">
+								<tr Height="20">
+									<td Height="20" width="100px" rowspan="2">
+										<font size="4">Application
+									</td>
+									<td Height="20" width="100px" rowspan="2">
+										<font size="4">Brand
+									</td>
+									<td Height="10" align="center" colspan="12">
+										<font size="4">2019
+									</td>
+									<td Height="10" align="center" colspan="11">
+										<font size="4">2020
+									</td>
+								</tr>
+								<tr>
+									<td Height="10" align="center" width="50">Jan</td>
+									<td Height="10" align="center" width="50">Feb</td>
+									<td Height="10" align="center" width="50">Mar</td>
+									<td Height="10" align="center" width="50">Apr</td>
+									<td Height="10" align="center" width="50">May</td>
+									<td Height="10" align="center" width="50">Jun</td>
+									<td Height="10" align="center" width="50">Jul</td>
+									<td Height="10" align="center" width="50">Aug</td>
+									<td Height="10" align="center" width="50">Sep</td>
+									<td Height="10" align="center" width="50">Oct</td>
+									<td Height="10" align="center" width="50">Nov</td>
+									<td Height="10" align="center" width="50">Dec</td>
+									<td Height="10" align="center" width="50">Jan</td>
+									<td Height="10" align="center" width="50">Feb</td>
+									<td Height="10" align="center" width="50">Mar</td>
+									<td Height="10" align="center" width="50">Apr</td>
+									<td Height="10" align="center" width="50">May</td>
+									<td Height="10" align="center" width="50">Jun</td>
+									<td Height="10" align="center" width="50">Jul</td>
+									<td Height="10" align="center" width="50">Aug</td>
+									<td Height="10" align="center" width="50">Sep</td>
+									<td Height="10" align="center" width="50">Oct</td>
+									<td Height="10" align="center" width="50">Nov</td>
+									<td Height="10" align="center" width="50">Dec</td>
+								</tr>
+								<tr Height="5">
+									<td style width="60px" rowspan=2>TV</td>
+									<td style width="60px">Hisense</td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="yellow"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" style="border:3px #FFAC55 double" ; bgcolor="green"></td>
+								</tr>
+								<tr Height="5">
+									<td style width="60px">Hisense</td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="yellow"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" style="border:3px #FFAC55 double" ; bgcolor="green"></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<div class="col-md-12 col-sm-12 ">
+						<div class="x_panel tile fixed_height_320 overflow_hidden" style="overflow-y:scroll">
+							<div class="x_title">
+								<span><span style="color: #34495E;">
+										<h3 style="background:#007979;color:White;text-align:ITInter;">未達標對策</h3>
+									</span></span>
+								<div class="clearfix"></div>
+							</div>
+							<div class="clearfix"></div>
+
+							<div class="x_content">
+								<table id="TVAction"  style="border:1px #cccccc solid;" cellpadding="2" border='1' width="100%" >
+									<tr>
+										<td align="center" Height="10" width="200" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">客戶</font></td>
+										<td align="center" Height="10"  width="350" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">項目</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">目標</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">成績</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">總分</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">得分</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">燈號</font></td>
+										<td align="center" Height="10"  width="500" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">未達標對策</font></td>
+									</tr>
+								</table>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<!-- ITI Tab -->
+
+		<div class="tab-pane fade" id="ITI" role="tabpanel" aria-labelledby="ITI-tab">
+			<div class="row">
+				<div class="col-md-12 col-sm-12 ">
+					<div class="x_panel tile fixed_height_320" style="height:100%">
+						<div class="x_title">
+							<h3 id="rateITI" style="background:	#000079;color:White;text-align:ITInter;" align="center">ITI 客戶排名</h3>
+							<div class="clearfix"></div>
+						</div>
+						<div class="x_content">
+							<table style="border:2px #cccccc solid;" cellpadding="10" border='1' width="100%"
+								id="ITIRanking">
+								<tr Height="20">
+									<td Height="20" width="100px" rowspan="2">
+										<font size="4">Application
+									</td>
+									<td Height="20" width="100px" rowspan="2">
+										<font size="4">Brand
+									</td>
+									<td Height="10" align="center" colspan="12">
+										<font size="4">2019
+									</td>
+									<td Height="10" align="center" colspan="11">
+										<font size="4">2020
+									</td>
+								</tr>
+								<tr>
+									<td Height="10" align="center" width="50">Jan</td>
+									<td Height="10" align="center" width="50">Feb</td>
+									<td Height="10" align="center" width="50">Mar</td>
+									<td Height="10" align="center" width="50">Apr</td>
+									<td Height="10" align="center" width="50">May</td>
+									<td Height="10" align="center" width="50">Jun</td>
+									<td Height="10" align="center" width="50">Jul</td>
+									<td Height="10" align="center" width="50">Aug</td>
+									<td Height="10" align="center" width="50">Sep</td>
+									<td Height="10" align="center" width="50">Oct</td>
+									<td Height="10" align="center" width="50">Nov</td>
+									<td Height="10" align="center" width="50">Dec</td>
+									<td Height="10" align="center" width="50">Jan</td>
+									<td Height="10" align="center" width="50">Feb</td>
+									<td Height="10" align="center" width="50">Mar</td>
+									<td Height="10" align="center" width="50">Apr</td>
+									<td Height="10" align="center" width="50">May</td>
+									<td Height="10" align="center" width="50">Jun</td>
+									<td Height="10" align="center" width="50">Jul</td>
+									<td Height="10" align="center" width="50">Aug</td>
+									<td Height="10" align="center" width="50">Sep</td>
+									<td Height="10" align="center" width="50">Oct</td>
+									<td Height="10" align="center" width="50">Nov</td>
+									<td Height="10" align="center" width="50">Dec</td>
+								</tr>
+								<tr Height="5">
+									<td style width="60px" rowspan=2>TV</td>
+									<td style width="60px">Hisense</td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="yellow"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" style="border:3px #FFAC55 double" ; bgcolor="green"></td>
+								</tr>
+								<tr Height="5">
+									<td style width="60px">Hisense</td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="yellow"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" style="border:3px #FFAC55 double" ; bgcolor="green"></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<div class="col-md-12 col-sm-12 ">
+						<div class="x_panel tile fixed_height_320 overflow_hidden" style="overflow-y:scroll">
+							<div class="x_title">
+								<span><span style="color: #34495E;">
+										<h3 style="background:#007979;color:White;text-align:ITInter;">未達標對策</h3>
+									</span></span>
+								<div class="clearfix"></div>
+							</div>
+							<div class="clearfix"></div>
+
+							<div class="x_content">
+								<table id="ITIAction"  style="border:2px #cccccc solid;" cellpadding="10" border='1' width="100%" >
+									<tr>
+										<td align="center" Height="10" width="200" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">客戶</font></td>
+										<td align="center" Height="10"  width="350" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">項目</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">目標</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">成績</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">總分</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">得分</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">燈號</font></td>
+										<td align="center" Height="10"  width="500" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">未達標對策</font></td>
+									</tr>
+								</table>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<!-- MD Tab -->
+		<div class="tab-pane fade" id="MD" role="tabpanel" aria-labelledby="MD-tab">
+			<div class="row">
+				<div class="col-md-12 col-sm-12 ">
+					<div class="x_panel tile fixed_height_320" style="height:100%">
+						<div class="x_title">
+							<h3  id="rateMD" style="background:	#000079;color:White;text-align:ITInter;" align="center">MD 客戶排名</h3>
+							<div class="clearfix"></div>
+						</div>
+						<div class="x_content">
+							<table style="border:2px #cccccc solid;" cellpadding="10" border='1' width="100%"
+								id="MDRanking">
+								<tr Height="20">
+									<td Height="20" width="100px" rowspan="2">
+										<font size="4">Application
+									</td>
+									<td Height="20" width="100px" rowspan="2">
+										<font size="4">Brand
+									</td>
+									<td Height="10" align="center" colspan="12">
+										<font size="4">2019
+									</td>
+									<td Height="10" align="center" colspan="11">
+										<font size="4">2020
+									</td>
+								</tr>
+								<tr>
+									<td Height="10" align="center" width="50">Jan</td>
+									<td Height="10" align="center" width="50">Feb</td>
+									<td Height="10" align="center" width="50">Mar</td>
+									<td Height="10" align="center" width="50">Apr</td>
+									<td Height="10" align="center" width="50">May</td>
+									<td Height="10" align="center" width="50">Jun</td>
+									<td Height="10" align="center" width="50">Jul</td>
+									<td Height="10" align="center" width="50">Aug</td>
+									<td Height="10" align="center" width="50">Sep</td>
+									<td Height="10" align="center" width="50">Oct</td>
+									<td Height="10" align="center" width="50">Nov</td>
+									<td Height="10" align="center" width="50">Dec</td>
+									<td Height="10" align="center" width="50">Jan</td>
+									<td Height="10" align="center" width="50">Feb</td>
+									<td Height="10" align="center" width="50">Mar</td>
+									<td Height="10" align="center" width="50">Apr</td>
+									<td Height="10" align="center" width="50">May</td>
+									<td Height="10" align="center" width="50">Jun</td>
+									<td Height="10" align="center" width="50">Jul</td>
+									<td Height="10" align="center" width="50">Aug</td>
+									<td Height="10" align="center" width="50">Sep</td>
+									<td Height="10" align="center" width="50">Oct</td>
+									<td Height="10" align="center" width="50">Nov</td>
+									<td Height="10" align="center" width="50">Dec</td>
+								</tr>
+								<tr Height="5">
+									<td style width="60px" rowspan=2>TV</td>
+									<td style width="60px">Hisense</td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="yellow"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" style="border:3px #FFAC55 double" ; bgcolor="green"></td>
+								</tr>
+								<tr Height="5">
+									<td style width="60px">Hisense</td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="yellow"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" style="border:3px #FFAC55 double" ; bgcolor="green"></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<div class="col-md-12 col-sm-12 ">
+						<div class="x_panel tile fixed_height_320 overflow_hidden" style="overflow-y:scroll">
+							<div class="x_title">
+								<span><span style="color: #34495E;">
+										<h3 style="background:#007979;color:White;text-align:ITInter;">未達標對策</h3>
+									</span></span>
+								<div class="clearfix"></div>
+							</div>
+							<div class="clearfix"></div>
+
+							<div class="x_content">
+								<table id="MDAction"  style="border:2px #cccccc solid;" cellpadding="10" border='1' width="100%" >
+									<tr>
+										<td align="center" Height="10" width="200" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">客戶</font></td>
+										<td align="center" Height="10"  width="350" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">項目</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">目標</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">成績</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">總分</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">得分</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">燈號</font></td>
+										<td align="center" Height="10"  width="500" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">未達標對策</font></td>
+									</tr>
+								</table>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<!-- AA Tab -->
+		<div class="tab-pane fade" id="AA" role="tabpanel" aria-labelledby="AA-tab">
+			<div class="row">
+				<div class="col-md-12 col-sm-12 ">
+					<div class="x_panel tile fixed_height_320" style="height:100%">
+						<div class="x_title">
+							<h3  id="rateAA" style="background:	#000079;color:White;text-align:ITInter;" align="center">AA 客戶排名</h3>
+							<div class="clearfix"></div>
+						</div>
+						<div class="x_content">
+							<table style="border:2px #cccccc solid;" cellpadding="10" border='1' width="100%"
+								id="AARanking" >
+								<tr Height="20">
+									<td Height="20" width="100px" rowspan="2">
+										<font size="4">Application
+									</td>
+									<td Height="20" width="100px" rowspan="2">
+										<font size="4">Brand
+									</td>
+									<td Height="10" align="center" colspan="12">
+										<font size="4">2019
+									</td>
+									<td Height="10" align="center" colspan="11">
+										<font size="4">2020
+									</td>
+								</tr>
+								<tr>
+									<td Height="10" align="center" width="50">Jan</td>
+									<td Height="10" align="center" width="50">Feb</td>
+									<td Height="10" align="center" width="50">Mar</td>
+									<td Height="10" align="center" width="50">Apr</td>
+									<td Height="10" align="center" width="50">May</td>
+									<td Height="10" align="center" width="50">Jun</td>
+									<td Height="10" align="center" width="50">Jul</td>
+									<td Height="10" align="center" width="50">Aug</td>
+									<td Height="10" align="center" width="50">Sep</td>
+									<td Height="10" align="center" width="50">Oct</td>
+									<td Height="10" align="center" width="50">Nov</td>
+									<td Height="10" align="center" width="50">Dec</td>
+									<td Height="10" align="center" width="50">Jan</td>
+									<td Height="10" align="center" width="50">Feb</td>
+									<td Height="10" align="center" width="50">Mar</td>
+									<td Height="10" align="center" width="50">Apr</td>
+									<td Height="10" align="center" width="50">May</td>
+									<td Height="10" align="center" width="50">Jun</td>
+									<td Height="10" align="center" width="50">Jul</td>
+									<td Height="10" align="center" width="50">Aug</td>
+									<td Height="10" align="center" width="50">Sep</td>
+									<td Height="10" align="center" width="50">Oct</td>
+									<td Height="10" align="center" width="50">Nov</td>
+									<td Height="10" align="center" width="50">Dec</td>
+								</tr>
+								<tr Height="5">
+									<td style width="60px" rowspan=2>TV</td>
+									<td style width="60px">Hisense</td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="yellow"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" style="border:3px #FFAC55 double" ; bgcolor="green"></td>
+								</tr>
+								<tr Height="5">
+									<td style width="60px">Hisense</td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="red"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="yellow"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" bgcolor="green"></td>
+									<td Height="10" style="border:3px #FFAC55 double" ; bgcolor="green"></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<div class="col-md-12 col-sm-12 ">
+						<div class="x_panel tile fixed_height_320 overflow_hidden" style="overflow-y:scroll">
+							<div class="x_title">
+								<span><span style="color: #34495E;">
+										<h3 style="background:#007979;color:White;text-align:ITInter;">未達標對策</h3>
+									</span></span>
+								<div class="clearfix"></div>
+							</div>
+							<div class="clearfix"></div>
+
+							<div class="x_content">
+								<table id="AAAction"  style="border:2px #cccccc solid;" cellpadding="10" border='1' width="100%" >
+									<tr>
+										<td align="center" Height="10" width="200" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">客戶</font></td>
+										<td align="center" Height="10"  width="350" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">項目</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">目標</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">成績</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">總分</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">得分</font></td>
+										<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">燈號</font></td>
+										<td align="center" Height="10"  width="500" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">未達標對策</font></td>
+									</tr>
+								</table>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- KPI Tab -->
+		<div class="tab-pane fade" id="KPI" role="tabpanel" aria-labelledby="KPI-tab">
+			<div class="row">
+				<div class="col-md-12 col-sm-12 ">
+					<div class="x_panel tile fixed_height_320" style="height:100%">
+						<!-- <div class="x_title">
+							<h3  id="rateKPI" style="background:#000079;color:White;text-align:ITInter;" align="center">Product Achivement Rate</h3>
+							<div class="clearfix"></div>
+						</div> -->
+						<div class="x_content d-flex justify-content-center w-100">
+							<img src="CR_Month.png" alt="客戶排名達標率">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Annual Tab -->
+		<div class="tab-pane fade show active" id="Annual" role="tabpanel" aria-labelledby="Annual-tab">
+			<div class="row">
+				<div class="col-12 d-flex justify-content-center">
+					<div class="x_panel tile fixed_height_320 col-12" style="height:100%">
+						<div class="x_title">
+							<h3 class="d-block" style="background:#000079;color:White;text-align:ITInter;" align="center">重要客戶排名年度達標率(%)</h3>
+							<div class="clearfix"></div>
+						</div>
+						<div class="row border border-primary border-0 mt-0 mb-1 col-12 position-relative" style="background-color:white;">
+							
+							<div class="col-4">
+								
+							</div>
+							<div class="col-2">
+								<div class='mt-1 mb-1 '> 
+									<span class="fw-bolder text-dark" style="font-size: 18px;">BU :</span>
+									 <select id='CR_BU' class="form-select" style="font-size: 18px;" aria-label="Default select example">
+										<option value="All" selected>All</option>
+										<option value="TV">TV</option>
+										<option value="NB">NB</option>
+										<option value="ITI">ITI</option>
+									  </select>
+									
+								</div>
+								
+							</div>    
+							<div class="col-3">
+								<div class='mt-1 mb-1 fw-bolder'> 
+									<span class="fw-bolder text-dark" style="font-size: 18px;">Application : </span>
+									<select id='CR_Application' class="form-select" style="font-size: 18px;" aria-label="Default select example">
+										<option value="All" selected>All</option>
+										<option value="重慶">重慶</option>
+										<option value="上海">上海</option>
+										<option value="煙台">煙台</option>
+									  </select>
+									
+								</div>
+							</div>
+					
+					
+						</div>
+						<div class="x_content d-flex justify-content-center w-100 col-12 m-auto">
+							<button type="button" class="btn position-absolute" style="top:70%;left:60%;z-index:2;background: #FFC300;">Year 2021 Goal 75%</button>
+							<div class='col-3'></div>
+							<div id="customerRankingYear" style="height:400%;width:600%" class="m-auto"></div>
+							<div class='col-3'></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="vendors/jquery.min.js"></script>
+	<script src="vendors/bootstrap.bundle.min.js"></script>
+	<script src="vendors/fastclick.js"></script>
+	<script src="vendors/nprogress.js"></script>
+	<script src="vendors/Chart.min.js"></script>
+	<script src="vendors/gauge.min.js"></script>
+	<script src="vendors/bootstrap-progressbar.min.js"></script>
+	<script src="vendors/icheck.min.js"></script>
+	<script src="vendors/skycons.js"></script>
+	<script src="vendors/jquery.flot.js"></script>
+	<script src="vendors/jquery.flot.pie.js"></script>
+	<script src="vendors/jquery.flot.time.js"></script>
+	<script src="vendors/jquery.flot.stack.js"></script>
+	<script src="vendors/jquery.flot.resize.js"></script>
+	<script src="vendors/jquery.flot.orderBars.js"></script>
+	<script src="vendors/jquery.flot.spline.min.js"></script>
+	<script src="vendors/curvedLines.js"></script>
+	<script src="vendors/date.js"></script>
+	<script src="vendors/jquery.vmap.js"></script>
+	<script src="vendors/jquery.vmap.world.js"></script>
+	<script src="vendors/jquery.vmap.sampledata.js"></script>
+	<script src="vendors/moment.min.js"></script>
+	<script src="vendors/daterangepicker.js"></script>
+	<script src="vendors/custom.min.js"></script>
+	<script src="/js/echarts.min.js"></script>
+
+
+
+
+</body>
+<script>
+let hostname='http://tw071273p/';
+let maxYear=0;
+let maxMonth=0;
+let CRYearData=[];
+let CRYear_BU=[];
+let CRYear_Application=[];
+let CRYear_BU_Application=[];
+let CRYear_Year=[];
+let userSelectedBU='All';
+let userSelectedApplication='All';
+
+$(function () {
+	getMaxYearMonth();
+	getCustomerRankingYearData();
+
+	
+	// showCustomer_Ranking_YearChart();
+
+	$('#CR_BU').change(function(){
+		userSelectedBU=$('#CR_BU').val();
+		console.log('userSelectedBU:',userSelectedBU);
+		if(userSelectedBU=='All'){
+			$('#CR_Application').empty();
+			$('#CR_Application').append('<option value="All" selected>All</option>');
+			for(i of CRYear_Application){
+				$('#CR_Application').append('<option value="'+i+'">'+i+'</option>');
+			}
+		}
+		else{
+			let applicationData=CRYear_BU_Application.filter(el=>el.BU==userSelectedBU);
+			console.log('applicationData:',applicationData);
+			$('#CR_Application').empty();
+			if(applicationData.length>1){
+				$('#CR_Application').append('<option value="All" selected>All</option>');
+				for(i of applicationData){
+					$('#CR_Application').append('<option value="'+i.Application+'">'+i.Application+'</option>');
+				}
+			}
+			else{
+				for(i of applicationData){
+					$('#CR_Application').append('<option value="'+i.Application+'" selected>'+i.Application+'</option>');
+				}
+			}
+			
+
+		}
+		userSelectedApplication='All';
+		showCustomerRankingYear(userSelectedBU,userSelectedApplication);
+	});
+
+	$('#CR_Application').change(function(){
+		userSelectedApplication=$('#CR_Application').val();
+		if(userSelectedApplication!='All'){
+			let selectedBUByApplication=CRYear_BU_Application.filter(el=>el.Application==userSelectedApplication)
+			userSelectedBU=selectedBUByApplication[0].BU;
+			$('#CR_CR').empty();
+			$('#CR_CR').append('<option value="'+userSelectedBU+'" selected>'+userSelectedBU+'</option>');
+		}
+		console.log('userSelectedApplication:',userSelectedApplication);
+		showCustomerRankingYear(userSelectedBU,userSelectedApplication);
+	});
+
+});
+
+
+
+function init_BU_Application(){
+	$('#CR_BU').empty();
+	$('#CR_BU').append('<option value="All" selected>All</option>');
+	for(i of CRYear_BU){
+		$('#CR_BU').append('<option value="'+i+'">'+i+'</option>');
+	}
+	$('#CR_Application').empty();
+	$('#CR_Application').append('<option value="All" selected>All</option>');
+	for(i of CRYear_Application){
+		$('#CR_Application').append('<option value="'+i+'">'+i+'</option>');
+	}
+
+}
+
+function showCustomerRankingYear(selectedBU,selectedApplication){
+	let yearGreen=0;
+	let yearNotGreen=0;
+	let yearGreenRate=[];
+	let yearGreenRateItem=[];
+	let selectedData={};
+	let selectedBUData={};
+	let selectedApplicationData={};
+	let markPointData=[];
+	let markPoint={};
+	let count=0;
+	let customerGreen='';
+	let customerNotGreen='';
+	if(selectedBU=='All'){
+		for(j of CRYear_Year){
+			customerGreen='';
+			customerNotGreen='';
+			yearGreenRateItem=[];
+			yearGreen=0;
+			yearNotGreen=0;
+			markPoint={};
+			selectedData=CRYearData.filter(el=>el.YEAR==j);
+			for(i of selectedData){
+				if(i.SCORE=='達標'){
+					yearGreen++;
+					customerGreen+=i.CUSTOMER+' ';
+				}
+				else{
+					yearNotGreen++;
+					customerNotGreen+=i.CUSTOMER+' ';
+				}
+			}
+			yearGreenRateItem.push((yearGreen*100./(yearGreen+yearNotGreen)).toFixed(0));
+			// yearGreenRateItem.push(customerGreen);
+			// yearGreenRateItem.push(customerNotGreen);
+			yearGreenRate.push((yearGreen*100./(yearGreen+yearNotGreen)).toFixed(0));
+			markPoint.value=(yearGreen*100./(yearGreen+yearNotGreen)).toFixed(0)+'%';
+			markPoint.xAxis=count;
+			markPoint.yAxis=(yearGreen*100./(yearGreen+yearNotGreen)).toFixed(0);
+			if(count === CRYear_Year.length -1)markPoint.itemStyle={color:'#FFC300'};
+			markPointData.push(markPoint);
+			count++;
+		}
+	}
+	else{
+		selectedBUData=CRYearData.filter(el=>el.BU==selectedBU);
+		if(selectedApplication!='All'){
+			selectedApplicationData=selectedBUData.filter(el=>el.APPLICATION==selectedApplication);
+		}
+		else{
+			selectedApplicationData=selectedBUData;
+		}
+		for(j of CRYear_Year){
+			customerGreen='';
+			customerNotGreen='';
+			yearGreenRateItem=[];
+			yearGreen=0;
+			yearNotGreen=0;
+			markPoint={};
+			selectedData=selectedApplicationData.filter(el=>el.YEAR==j);
+			for(i of selectedData){
+				if(i.SCORE=='達標'){
+					yearGreen++;
+					customerGreen+=i.CUSTOMER+' ';
+				}
+				else{
+					yearNotGreen++;
+					customerNotGreen+=i.CUSTOMER+' ';
+				}
+			}
+
+			yearGreenRateItem.push((yearGreen*100./(yearGreen+yearNotGreen)).toFixed(0));
+			// yearGreenRateItem.push(customerGreen);
+			// yearGreenRateItem.push(customerNotGreen);
+			yearGreenRate.push((yearGreen*100./(yearGreen+yearNotGreen)).toFixed(0));
+
+			markPoint.value=(yearGreen*100./(yearGreen+yearNotGreen)).toFixed(0)+'%';
+			markPoint.xAxis=count;
+			markPoint.yAxis=(yearGreen*100./(yearGreen+yearNotGreen)).toFixed(0);
+			if(count === CRYear_Year.length -1)markPoint.itemStyle={color:'#FFC300'};
+			markPointData.push(markPoint);
+			count++;
+		}	
+	}
+	console.log('yearGreenRate:',yearGreenRate);
+	console.log('markPointData:',JSON.stringify(markPointData));
+	//[
+					// 	{value:'52%',xAxis:0, yAxis: 52},
+					// 	{value:'48%',xAxis:1, yAxis: 48},
+					// 	{value:'62%',xAxis:2, yAxis: 62},
+					// 	{value:'63%',xAxis:3, yAxis: 63},
+					// 	{value:'66%',xAxis:4, yAxis: 66},
+					// 	{value:'70%',xAxis:5, yAxis: 70},
+					// 	{value:'76%',xAxis:6, yAxis: 76}
+					// ]
+	showCustomer_Ranking_YearChart(CRYear_Year,yearGreenRate,markPointData);
+}
+
+function getMaxYearMonth(){
+	$.ajax({
+			url: hostname+"getMaxYearMonth_Customer_Ranking_Month.php",
+			method: "GET",
+			dataType: "JSON",
+			success: function (data) {
+				if(data!=null){
+					maxYear=data[0].maxYear;
+					maxMonth=data[0].maxMonth;
+					console.log('maxYear:'+maxYear);
+					console.log('maxMonth:'+maxMonth);
+					showCustomerRanking();
+				}
+			}
+	});
+}
+	
+function getCustomerRankingYearData(){	
+	$.ajax({
+			url: hostname+"getCustomer_Ranking_Year.php",
+			method: "GET",
+			dataType: "JSON",
+			success: function (data) {
+				CRYearData=data;
+				getBU_Application_Year(CRYearData);
+			}
+		});
+}
+
+function getBU_Application_Year(CRYearData){
+	let BU_Application={};
+	for (i of CRYearData){
+		BU_Application={};
+		if(!CRYear_BU_Application.find(el=>el.BU==i.BU && el.Application==i.APPLICATION)){
+			BU_Application.BU=i.BU;
+			BU_Application.Application=i.APPLICATION;
+			CRYear_BU_Application.push(BU_Application);
+			// CRYear_BU.push(i.BU);
+		}
+		if(!CRYear_BU.find(el=>el==i.BU)){
+			CRYear_BU.push(i.BU);
+		}
+		if(!CRYear_Application.find(el=>el==i.APPLICATION)){
+			CRYear_Application.push(i.APPLICATION);
+		}
+		if(!CRYear_Year.find(el=>el==i.YEAR)){
+			CRYear_Year.push(i.YEAR);
+		}
+	}
+	console.log('CRYear_BU:',CRYear_BU);
+	console.log('CRYear_Application:',CRYear_Application);
+	console.log('CRYear_Year:',CRYear_Year);
+	console.log('CRYear_BU_Application:',CRYear_BU_Application);
+	showCustomerRankingYear('All','All');
+	init_BU_Application();
+}
+
+function showCustomerRanking(){	
+	$.ajax({
+			url: hostname+"getCustomer_Ranking_Month.php",
+			method: "POST",
+			data: { Year: maxYear},
+			dataType: "JSON",
+			success: function (data) {
+				//TV Ranking Table
+				
+				//console.log(data);
+				let totalCustomer=0;
+				let totalGreen=0;
+				let totalRate=0;
+				let totalTV=0;
+				let greenTV=0;
+				let rateTV=0;
+				let totalITI=0;
+				let greenITI=0;
+				let rateITI=0;
+				let totalMD=0;
+				let greenMD=0;
+				let rateMD=0;
+				let totalAA=0;
+				let greenAA=0;
+				let rateAA=0;
+
+				let lastMonthData=data.filter(el=>el.Year==maxYear && el.Month==maxMonth);
+				for(var i of lastMonthData){
+					totalCustomer++;
+					switch(i.Application){
+						case 'TABLET':
+						case 'CE':
+						case 'MP':
+							totalMD++;
+							break;
+						case 'TV':
+							totalTV++;
+							break;
+						case 'AA-BD4':
+							totalAA++;
+							break;
+						case 'NB':
+						case 'IAVM':
+						case 'MONITOR':
+							totalITI++;
+							break;
+					}
+					if(i.Lamp=='G'){
+						totalGreen++;
+						switch(i.Application){
+							case 'TABLET':
+							case 'CE':
+							case 'MP':
+								greenMD++;
+								break;
+							case 'TV':
+								greenTV++;
+								break;
+							case 'AA-BD4':
+								greenAA++;
+								break;
+							case 'NB':
+							case 'IAVM':
+							case 'MONITOR':
+								greenITI++;
+								break;
+						}
+					}
+				}
+
+				totalRate=Math.round(totalGreen/totalCustomer*100.);
+				rateAA=Math.round(greenAA/totalAA*100.);
+				rateTV=Math.round(greenTV/totalTV*100.);
+				rateMD=Math.round(greenMD/totalMD*100.);
+				rateITI=Math.round(greenITI/totalITI*100.);
+				$('#totalRate').text('客戶排名達標率預估 ('+totalRate+'%)');
+				$('#rateTV').text('TV 客戶排名達標率預估 ('+rateTV+'%)');
+				$('#rateAA').text('AA 客戶排名達標率預估 ('+rateAA+'%)');
+				$('#rateITI').text('ITI 客戶排名達標率預估 ('+rateITI+'%)');
+				$('#rateMD').text('MD 客戶排名達標率預估 ('+rateMD+'%)');
+				$("#TVRanking").empty();
+				var sTableHead = '<tr Height="20">' +
+					'		<td style=Height="20" width="100px" rowspan="2">' +
+					'			<font size="4">Application' +
+					'		</td>' +
+					'		<td style=Height="20" width="100px" rowspan="2">' +
+					'			<font size="4">Brand' +
+					'		</td>' +
+					'		<td style=Height="10" align="center" colspan="12">' +
+					'			<font size="4">'+(maxYear-1)+'</td>' +
+					'		<td style=Height="10" align="center" colspan="'+maxMonth+'">' +
+					'			<font size="4">'+maxYear+'</td>' +
+					'	</tr>' +
+					'	<tr>' ;
+				for(i=maxYear-1;i<=maxYear;i++){
+					if(i<maxYear){
+						for(var j=1;j<=12;j++){
+							sTableHead=sTableHead+'<td style=Height="10" align="center" width="50">'+j+'月</td>';
+						}
+					}
+					else{
+						for(j=1;j<=maxMonth;j++){
+							sTableHead=sTableHead+'<td style=Height="10" align="center" width="50">'+j+'月</td>';
+						}						
+					}
+				}
+				sTableHead=sTableHead+'</tr>';				
+				
+				$("#TVRanking").append(sTableHead);
+				var TVData = data.filter(el => (el.Application == "TV"));
+				showTable("TVRanking",TVData,'TV');
+
+				//ITI Ranking Table
+				$("#ITIRanking").empty();
+				$("#ITIRanking").append(sTableHead);
+				var TVData = data.filter(el => (el.Application == "IAVM"));
+				showTable("ITIRanking",TVData,'IAVM');
+				var TVData = data.filter(el => (el.Application == "MONITOR"));
+				showTable("ITIRanking",TVData,'MONITOR');
+				var TVData = data.filter(el => (el.Application == "NB"));
+				showTable("ITIRanking",TVData,'NB');
+
+				//MD Ranking Table
+				$("#MDRanking").empty();
+				$("#MDRanking").append(sTableHead);
+				var TVData = data.filter(el => (el.Application == "CE"));
+				showTable("MDRanking",TVData,'CE');
+				var TVData = data.filter(el => (el.Application == "MP"));
+				showTable("MDRanking",TVData,'MP');
+				var TVData = data.filter(el => (el.Application == "TABLET"));
+				showTable("MDRanking",TVData,'TABLET');
+
+
+				//AA Ranking Table
+				$("#AARanking").empty();
+				$("#AARanking").append(sTableHead);
+				var TVData = data.filter(el => (el.Application == "AA-BD4"));
+				showTable("AARanking",TVData,'AA');
+			}
+		});
+	}
+
+
+	function showTable(SelectorID,TVData,Application) {
+		//console.log('TVData:'+TVData);
+		var TVBrandArray = [];
+		for (var i = 0; i < TVData.length; i++) {
+			//	console.log(i);
+			if (TVBrandArray.indexOf(TVData[i].Brand) == -1) {
+				TVBrandArray.push(TVData[i].Brand);
+				//		console.log(TVData[i].Brand);
+			}
+		}
+		if(Application=='MP'){
+			console.log("MP:"+TVBrandArray);
+		}
+		//console.log(TVBrandArray);
+		var sRow = '<tr  Height="5">';
+		sRow = sRow + '<td  style width="60px" rowspan=' + TVBrandArray.length + '>'+Application+'</td>';
+		var monthCount = 0;
+		for (var i = 0; i < TVData.length; i++) {
+			if (TVData[i].Brand == TVBrandArray[0]) {
+				monthCount++;
+			}
+		}
+		if(Application=='MP'){
+			console.log("sRow:"+sRow);
+		}
+		//console.log('monthCount:' + monthCount);
+		for (var j = 0; j < TVBrandArray.length; j++) {
+			var count = 0;
+			for (var i = 0; i < TVData.length; i++) {
+				if (TVData[i].Brand == TVBrandArray[j]) {
+					if (count == 0) {
+
+						sRow = sRow + '<td class="Brand">' + TVBrandArray[j] + '</td>';
+					}
+					count++;				
+        
+					if (count == monthCount) {
+						if (TVData[i].Lamp == 'R') {
+							if (TVData[i].Rank == 'R' || TVData[i].Rank == 'G' || TVData[i].Rank == 'Y' || TVData[i].Rank == 'A' || TVData[i].Rank == 'B' || TVData[i].Rank == 'C' || TVData[i].Rank == 'None') {
+								sRow = sRow + '<td Height="10"    bgcolor="red"> </td>';
+							}
+							else {
+								sRow = sRow + '<td Height="10"    bgcolor="red"><font color="white">' + TVData[i].Rank + '</font></td>';
+							}
+
+						}
+						else if (TVData[i].Lamp == 'G') {
+							if (TVData[i].Rank == 'R' || TVData[i].Rank == 'G' || TVData[i].Rank == 'Y' || TVData[i].Rank == 'A' || TVData[i].Rank == 'B' || TVData[i].Rank == 'C' || TVData[i].Rank == 'None') {
+								sRow = sRow + '<td Height="10"    bgcolor="green"></td>';
+							}
+							else {
+								sRow = sRow + '<td Height="10"    bgcolor="green"><font color="white">' + TVData[i].Rank + '</font></td>';
+							}
+						}
+						else if (TVData[i].Lamp == 'Y') {
+							if (TVData[i].Rank == 'R' || TVData[i].Rank == 'G' || TVData[i].Rank == 'Y' || TVData[i].Rank == 'A' || TVData[i].Rank == 'B' || TVData[i].Rank == 'C' || TVData[i].Rank == 'None') {
+								sRow = sRow + '<td Height="10"    bgcolor="yellow"> </td>';
+							}
+							else {
+								sRow = sRow + '<td Height="10"    bgcolor="yellow"><font color="black">' + TVData[i].Rank + '</font></td>';
+							}
+						}
+						else {
+							sRow = sRow + '<td Height="10"    bgcolor="white"></td>';
+						}
+
+					}
+					else {
+						if (TVData[i].Lamp == 'R') {
+							sRow = sRow + '<td Height="10" bgcolor="red"></td>';
+						}
+						else if (TVData[i].Lamp == 'G') {
+							sRow = sRow + '<td Height="10" bgcolor="green"></td>';
+						}
+						else if (TVData[i].Lamp == 'Y') {
+							sRow = sRow + '<td Height="10" bgcolor="yellow"></td>';
+						}
+						else {
+							sRow = sRow + '<td Height="10" bgcolor="white"></td>';
+						}
+					}
+
+				}
+			}
+			sRow = sRow + '</tr>';
+			$("#"+SelectorID).append(sRow);
+			//	console.log(sRow);
+			sRow = '<tr>';
+		}
+	}
+
+
+		$(document).on('click', '#TVRanking td', 
+        function() {
+            var td = $(this);
+            var tr = td.parent();  
+	//		alert(tr.children(".Brand").text());
+			var Brand=tr.children(".Brand").text();
+			console.log("Brand:"+Brand);
+			$.ajax({
+			url: hostname+"getBrand_Score.php",
+			method: "POST",
+			data: { Year: maxYear, Month:maxMonth,Application:'TV',Brand:Brand },
+			dataType: "JSON",
+			success: function (data) {
+				console.log("data:"+data);
+				showBrandScore("TVAction",data);
+
+				
+				}
+			});
+		});
+		
+		$(document).on('click', '#ITIRanking td', 
+        function() {
+            var td = $(this);
+            var tr = td.parent();  
+		//	alert(tr.children(".Brand").text());
+			var Brand=tr.children(".Brand").text();
+			console.log("Brand:"+Brand);
+			$.ajax({
+			url: hostname+"getBrand_Score.php",
+			method: "POST",
+			data: { Year: maxYear, Month:maxMonth,Application:'IAVM',Brand:Brand },
+			dataType: "JSON",
+			success: function (data) {
+				showBrandScore("ITIAction",data);
+				}
+			});
+			$.ajax({
+			url: hostname+"getBrand_Score.php",
+			method: "POST",
+			data: { Year: maxYear, Month:maxMonth,Application:'MONITOR',Brand:Brand },
+			dataType: "JSON",
+			success: function (data) {
+				console.log("Action:"+data[0].Action);
+				if(data.length>0 && data[0].Action!='None'){
+					showBrandScore("ITIAction",data);
+					}
+				}
+			});
+			$.ajax({
+			url: hostname+"getBrand_Score.php",
+			method: "POST",
+			data: { Year: maxYear, Month:maxMonth,Application:'NB',Brand:Brand },
+			dataType: "JSON",
+			success: function (data) {
+				showBrandScore("ITIAction",data);
+				}
+			});
+    	});
+
+		$(document).on('click', '#MDRanking td', 
+        function() {
+            var td = $(this);
+            var tr = td.parent();  
+		//	alert(tr.children(".Brand").text());
+			var Brand=tr.children(".Brand").text();
+			console.log("Brand:"+Brand);
+			$.ajax({
+			url: hostname+"getBrand_Score.php",
+			method: "POST",
+			data: { Year: maxYear, Month:maxMonth,Application:'CE',Brand:Brand },
+			dataType: "JSON",
+			success: function (data) {
+				showBrandScore("MDAction",data);
+					
+				}
+			});
+			$.ajax({
+			url: hostname+"getBrand_Score.php",
+			method: "POST",
+			data: { Year: maxYear, Month:maxMonth,Application:'MP',Brand:Brand },
+			dataType: "JSON",
+			success: function (data) {
+				showBrandScore("MDAction",data);
+				}
+			});
+			$.ajax({
+			url: hostname+"getBrand.php",
+			method: "POST",
+			data: { Year: maxYear, Month:maxMonth,Application:'TABLET',Brand:Brand },
+			dataType: "JSON",
+			success: function (data) {
+				showBrandScore("MDAction",data);
+				}
+			});
+		});
+
+	function showBrandScore(SelectorID,data){
+		console.log(SelectorID+":"+data[0].Action);
+		nRow=data.length;
+		console.log("items number:"+nRow);
+		if(nRow>0){
+			$("#"+SelectorID).empty();
+			sAction='<tr>'+
+						'<td align="center" Height="10" width="200" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">客戶</font></td>'+
+						'<td align="center" Height="10"  width="350" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">項目</font></td>'+
+						'<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">目標</font></td>'+
+						'<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">成績</font></td>'+
+						'<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">總分</font></td>'+
+						'<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">得分</font></td>'+
+						'<td align="center" Height="10"  width="70" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">燈號</font></td>'+
+						'<td align="center" Height="10"  width="500" style= "background:#007979;color:White;text-align:ITInter;"><font size="4">未達標對策</font></td></tr>';
+		}
+		if(data.length>0){
+			for(var i=0;i<data.length;i++){
+				
+				sAction=sAction+'<tr>'+
+						'<td><font size="3">'+data[i].Brand+'</font></td>'+
+						'<td><font size="3">'+data[i].Items+'</font></td>'+
+						'<td align="center" ><font size="3">'+data[i].Target+'</font></td>'+
+						'<td align="center" ><font size="3">'+data[i].Value+'</font></td>'+
+						'<td align="center" ><font size="3">'+data[i].Total_Score+'</font></td>'+
+						'<td align="center" ><font size="3">'+(data[i].Get_Score).substring(0, 4)+'</font></td>';
+						if (data[i].Lamp == 'R') {
+							sAction = sAction + '<td align="center"><svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle-fill text-danger align-middle text-center" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></td>';
+						}
+						else if (data[i].Lamp == 'G') {
+							sAction = sAction + '<td align="center"><svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle-fill text-success align-middle text-center" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></td>';
+						}
+						else if (data[i].Lamp == 'Y') {
+							sAction = sAction + '<<td align="center"><svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle-fill text-warning align-middle text-center" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></td>></td>';
+						}
+						else {
+							sAction = sAction + '<td align="center"><svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-circle-fill text-white align-middle text-center" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></td>';
+						}			
+				
+				if(i==0){
+					sAction=sAction+'<td rowspan='+nRow+' valign="top"><pre><font size="3">'+data[i].Action+'</font></pre></td>';
+				}
+						
+				sAction=sAction+'</tr>';
+			}		
+			console.log('sAction:'+sAction);
+			$("#"+SelectorID).append(sAction);
+		}
+
+	}
+
+function showCustomer_Ranking_YearChart(CRYear_Year,yearGreenRate,markPointData){
+	var dom = document.getElementById("customerRankingYear");
+	var myChart = echarts.init(dom);
+	var app = {};
+
+	var option;
+
+
+
+	option = {
+		title: {
+			show:false,
+			text: '重要客戶排名年度達標率(%)',
+			x:'center',
+			y:'top',
+			textStyle:{
+				fontSize:26
+			}
+		},
+		tooltip: {
+			trigger: 'axis',
+			formatter:function(params){
+				let selectedYear=params[0].name;
+				let customerGreen='';
+				let customerNotGreen='';
+				let yearGreenRateItem=[];
+				let BUApplicationData=[];
+				let yearGreen=0;
+				let yearNotGreen=0;
+				let BUList=[];
+				let applicationList=[];
+				let selectedApplicationData=[];
+				let selectedBUData=[];
+				// yearGreen=0;
+				// yearNotGreen=0;
+				if(userSelectedBU!='All'){
+					BUApplicationData=CRYearData.filter(el=>el.BU==userSelectedBU);
+				}
+				else{
+					BUApplicationData=CRYearData;
+				}
+				if(userSelectedApplication!='All'){
+					BUApplicationData=BUApplicationData.filter(el=>el.APPLICATION==userSelectedApplication);
+				}
+
+				let selectedData=BUApplicationData.filter(el=>el.YEAR==selectedYear);
+				for(i of selectedData){
+					if(!BUList.find(el=>el==i.BU)){
+						BUList.push(i.BU);
+					}
+					if(!applicationList.find(el=>el==i.APPLICATION)){
+						applicationList.push(i.APPLICATION);
+					}
+				}
+				let sHTML='<table class="CR">';
+				if(BUList.length==1){
+					
+					for(j of applicationList){
+						sHTML=sHTML+'<tr>';
+						sHTML=sHTML+'<td class="CR">'+BUList[0]+'</td>';
+						customerGreen='';
+						customerNotGreen='';
+						selectedApplicationData=selectedData.filter(el=>el.APPLICATION==j);
+						for(i of selectedApplicationData){
+							if(i.SCORE=='達標'){
+								yearGreen++;
+								customerGreen+=i.CUSTOMER+' ';
+							}
+							else{
+								yearNotGreen++;
+								customerNotGreen+=i.CUSTOMER+' ';
+							}
+						}
+						sHTML=sHTML+'<td class="CR">'+j+'</td><td class="CR">達標</td><td class="CR">'+customerGreen+'</td></tr>';
+						sHTML=sHTML+'<tr>';
+						sHTML=sHTML+'<td class="CR">'+BUList[0]+'</td>';
+						sHTML=sHTML+'<td class="CR">'+j+'</td><td class="CR">未達標</td><td class="CR">'+customerNotGreen+'</td></tr>';
+					}
+				}
+				else{
+					for(k of BUList){
+						
+						selectedBUData=selectedData.filter(el=>el.BU==k);
+						for(i of selectedBUData){
+							if(!applicationList.find(el=>el==i.APPLICATION)){
+								applicationList.push(i.APPLICATION);
+							}
+						}
+						for(j of applicationList){
+							sHTML=sHTML+'<tr>';
+							sHTML=sHTML+'<td class="CR">'+k+'</td>';
+							customerGreen='';
+							customerNotGreen='';
+							selectedApplicationData=selectedBUData.filter(el=>el.APPLICATION==j);
+							applicationList=[];
+							
+
+							for(i of selectedApplicationData){
+								if(i.SCORE=='達標'){
+									yearGreen++;
+									customerGreen+=i.CUSTOMER+' ';
+								}
+								else{
+									yearNotGreen++;
+									customerNotGreen+=i.CUSTOMER+' ';
+								}
+							}
+							sHTML=sHTML+'<td class="CR">'+j+'</td><td class="CR">達標</td><td class="CR">'+customerGreen+'</td></tr>';
+							sHTML=sHTML+'<tr>';
+							sHTML=sHTML+'<td class="CR">'+k+'</td>';
+							sHTML=sHTML+'<td class="CR">'+j+'</td><td class="CR">未達標</td><td class="CR">'+customerNotGreen+'</td></tr>';
+						}
+					}
+				}
+				sHTML=sHTML+'</table>';
+				if(userSelectedBU=='All'){
+					sHTML='';
+				}
+				return sHTML;
+			}
+			
+		},
+		legend: {
+			show:false
+			// data: ['達標率']
+		},
+		toolbox: {
+			show: false,
+			feature: {
+				magicType: {type: ['line', 'bar']},
+			}
+		},
+		xAxis: {
+			type: 'category',
+			boundaryGap: false,
+			data: CRYear_Year,//['Y2015', 'Y2016', 'Y2017', 'Y2018', 'Y2019', 'Y2020', 'Y2021']
+			axisLabel: {
+				show: true,
+				textStyle: {
+					fontSize: 16
+				}
+			}
+		},
+		yAxis: {
+			type: 'value',
+			axisLabel: {
+				formatter: '{value}%',
+				textStyle: {
+					fontSize: 16
+				}
+			}
+		},
+		series: [
+			{
+				name: '達標率',
+				type: 'line',
+				itemStyle:{  
+   
+								color:'#03A9F4'    
+
+
+					},  
+				data: yearGreenRate,//[52, 48, 62, 63, 66, 70, 76],
+				markPoint: {
+					// label: {
+					// 		show: true
+					// 	},
+					// symbol: 'roundRect',
+					symbolSize: 70,
+					itemStyle:{  
+						normal:{    
+							// label: {
+							// 	show: true,
+							// 	color: '#fff',
+							// 	fontSize: 16,
+							// 	// formatter: "{b}\n\n{c}",
+							// 	// position: 'inside',
+							// 	// offset: [0, -14],
+							// },
+							
+							lineStyle:{    
+								color:'#03A9F4'    
+							}    
+						}  
+					}, 
+					data: markPointData//[
+					// 	{value:'52%',xAxis:0, yAxis: 52},
+					// 	{value:'48%',xAxis:1, yAxis: 48},
+					// 	{value:'62%',xAxis:2, yAxis: 62},
+					// 	{value:'63%',xAxis:3, yAxis: 63},
+					// 	{value:'66%',xAxis:4, yAxis: 66},
+					// 	{value:'70%',xAxis:5, yAxis: 70},
+					// 	{value:'76%',xAxis:6, yAxis: 76}
+					// ]
+				},
+				// markLine: {
+				//     data: [
+				//         {type: 'average', name: '平均值'}
+				//     ]
+				// }
+			},
+			
+		]
+	};
+	if (option && typeof option === 'object') {
+    	myChart.setOption(option);
+	}
+}
+
+
+
+
+
+</script>
+</html>
