@@ -147,8 +147,18 @@ function paintTableStrategy() {
 
 function paintChartAnnual(bu, app) {
     overviewContent.style.display = 'flex'
-    axios.get(hostName + 'getCustomer_Ranking_Year.php').then(function (res) {
-        let data = res.data
+    async function annualData() {
+        const data1 = await axios.get(hostName + 'getCustomer_Ranking_Year.php')
+        let qs = Qs
+        axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+        const data2 = await axios.post(hostName + 'getCustomer_Ranking_Month.php', qs.stringify({ Year: thisYear }))
+        return {
+            data1,
+            data2,
+        }
+    }
+    annualData().then((res) => {
+        let data = res.data1.data
         if (bu) {
             if (bu !== 'ALL') data = data.filter((el) => el.BU === bu)
         }
@@ -158,10 +168,50 @@ function paintChartAnnual(bu, app) {
         let arrMarkPoint = []
         dataYear.forEach((year, index) => {
             let obj = {}
-            let d = data.filter((el) => el.YEAR === year)
-            let total = d.length
-            let overTarget = d.filter((el) => el.SCORE === '達標').length
-            let value = ((overTarget / total) * 100).toFixed(0)
+            let d
+            let total
+            let overTarget
+            let value
+            if (Number(year) !== thisYear) {
+                d = data.filter((el) => el.YEAR === year)
+                total = d.length
+
+                overTarget = d.filter((el) => el.SCORE === '達標').length
+                value = ((overTarget / total) * 100).toFixed(0)
+            } else {
+                data = res.data2.data
+                if (bu) {
+                    switch (bu) {
+                        case 'TV':
+                            data = data.filter((el) => el.Application === 'TV')
+                            break
+                        case 'ITI':
+                            data = data.filter(
+                                (el) =>
+                                    el.Application === 'IAVM' || el.Application === 'MONITOR' || el.Application === 'NB'
+                            )
+                            break
+                        case 'MD':
+                            data = data.filter(
+                                (el) =>
+                                    el.Application === 'CE' || el.Application === 'MP' || el.Application === 'TABLET'
+                            )
+                            break
+                        case 'AA':
+                            data = data.filter((el) => el.Application === 'AA-BD4')
+                            break
+                        default:
+                            break
+                    }
+                }
+                if (app) data = data.filter((el) => el.Application === app)
+                d = data.filter((el) => el.Year === year)
+                d = d.filter((el) => Number(el.Month) === thisMonth)
+                total = d.length
+
+                overTarget = d.filter((el) => el.Lamp === 'G').length
+                value = ((overTarget / total) * 100).toFixed(0)
+            }
             obj.value = `${value}%`
             obj.yAxis = value
             obj.xAxis = index
@@ -205,11 +255,10 @@ function getOptionBU() {
         console.log(data)
         let dataBU = Array.from(new Set(data.map((el) => el.BU)))
         let dataApplication = Array.from(new Set(data.map((el) => el.APPLICATION)))
-        console.log('BU', dataBU)
-        console.log('App', dataApplication)
         const selectorBU = document.querySelector('#selectorBU')
         const selectorApp = document.querySelector('#selectorApp')
         function renderBuOption() {
+            selectorBU.innerHTML = ''
             dataBU.forEach((bu, index) => {
                 if (index === 0) selectorBU.innerHTML += '<option value="ALL">ALL</option>'
                 selectorBU.innerHTML += `
