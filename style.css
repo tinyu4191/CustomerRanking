@@ -62,6 +62,7 @@ body {
 .left-col {
     margin: 0 5px;
     width: 12%;
+    min-height: calc(100vh - 10px);
     background-color: #666699;
     border-radius: 10px;
     display: flex;
