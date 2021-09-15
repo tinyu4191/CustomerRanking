@@ -72,30 +72,62 @@
                         <div class="rate-end"><span id="rate-bu">TV</span></div>
                     </div>
                     <div class="overview-content">
-                        <div class="chart-block">
-                            <div class="chart-title">
-                                <span>重要客戶排明年度達標率</span>
-                                <span>Annual Achievement Rate</span>
-                            </div>
-                            <div class="selector-box">
-                                <div>
-                                    <span class="text-selector">BU :</span>
-                                    <select name="" id="selectorBU"></select>
+                        <div class="overview-main">
+                            <div class="chart-block">
+                                <div class="chart-title">
+                                    <span>重要客戶排名年度達標率</span>
+                                    <span>Annual Compliance Rate</span>
                                 </div>
-                                <div>
-                                    <span class="text-selector">Application :</span>
-                                    <select name="" id="selectorApp"></select>
+                                <div class="selector-box">
+                                    <div>
+                                        <span class="text-selector">BU :</span>
+                                        <select name="" id="selectorBU"></select>
+                                    </div>
+                                    <div>
+                                        <span class="text-selector">Application :</span>
+                                        <select name="" id="selectorApp"></select>
+                                    </div>
                                 </div>
+                                <div class="chart chart-annual"></div>
+                                <div class="chart-target">Year 2021 Goal 75%</div>
                             </div>
-                            <div class="chart chart-annual"></div>
-                            <div class="chart-target">Year 2021 Goal 75%</div>
-                        </div>
-                        <div class="chart-block">
-                            <div class="chart-title">
-                                <span>產品別客戶前兩名綠燈比例</span>
-                                <span>Product Achievement Rate</span>
+                            <div class="chart-block">
+                                <div class="chart-title">
+                                    <span>產品別客戶前兩名綠燈比例</span>
+                                    <span>Product Compliance Rate</span>
+                                </div>
+                                <div class="chart chart-product"></div>
                             </div>
-                            <div class="chart chart-product"></div>
+                            <div class="overview-table-block" id="listTop">
+                                <ul class="strategy-brand-list">
+                                    <li><a href="">TV_Samsung</a></li>
+                                    <li><a href="">TV_SONY</a></li>
+                                    <li><a href="">ITI_XXX</a></li>
+                                    <li><a href="">MD_XXX</a></li>
+                                    <li><a href="">AA_XXX</a></li>
+                                </ul>
+                                <table class="overview-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center">產品別</th>
+                                            <th style="text-align: center">客戶</th>
+                                            <th>未達標對策</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="overview-tbody">
+                                        <tr>
+                                            <td>TV</td>
+                                            <td>Samsung</td>
+                                            <td>
+                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ipsum
+                                                dolorem tempora blanditiis deleniti deserunt aspernatur omnis quam
+                                                beatae possimus explicabo optio ex dolores, officia culpa perferendis
+                                                aliquam ut laborum?
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="rate-content">
@@ -176,6 +208,10 @@
                 </div>
             </div>
         </div>
+
+        <!-- Back to Top -->
+        <a href="#listTop" id="backToTop"><i class="fas fa-chevron-up"></i></a>
+
         <!-- Bootstrap -->
         <script src="./kit/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
         <!-- Font Awesome -->

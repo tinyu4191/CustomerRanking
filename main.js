@@ -1,6 +1,6 @@
 console.log('Customer Rank')
 // API host name
-const hostName = 'http://tw071273p/'
+const hostName = 'http://tw071273p/cq-warroom/'
 // Date
 let date = new Date()
 let thisYear = date.getFullYear()
@@ -81,7 +81,8 @@ function changeRightCol() {
 }
 
 function renderOverviewContent() {
-    overviewContent.style.display = 'flex'
+    overviewContent.style.display = 'block'
+    paintTableStrategy()
     let qs = Qs
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
     axios.post(hostName + 'getCustomer_Ranking_Month.php', qs.stringify({ Year: thisYear })).then(function (res) {
@@ -100,10 +101,64 @@ function renderOverviewContent() {
         renderOutOf(countOverTarget, total)
     })
 }
+
+function paintTableStrategy() {
+    let qs = Qs
+    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+    axios.post(hostName + 'getCustomer_Ranking_Month.php', qs.stringify({ Year: thisYear })).then(function (res) {
+        let data = res.data
+        let dataThisMonth = data.filter((el) => Number(el.Year) === thisYear && Number(el.Month) === thisMonth)
+        const sortList = ['TV', 'IAVM', 'MONITOR', 'NB', 'CE', 'MP', 'TABLET', 'AA-BD4']
+        let dataUnTragetRender = []
+        sortList.forEach((e) => {
+            let data = dataThisMonth.filter((el) => el.Application === e && el.Lamp !== 'G')
+            data = data.map((el) => {
+                return {
+                    Year: el.Year,
+                    Month: el.Month,
+                    Application: el.Application,
+                    Brand: el.Brand,
+                    Action: el.Action,
+                }
+            })
+            dataUnTragetRender = dataUnTragetRender.concat(data)
+        })
+        console.log(dataUnTragetRender)
+        const overviewTbody = document.querySelector('.overview-tbody')
+        const strategyBrandList = document.querySelector('.strategy-brand-list')
+        let content = ''
+        let contentList = ''
+        dataUnTragetRender.forEach((item) => {
+            contentList += `
+            <li><a href="#${item.Application}_${item.Brand}">${item.Application} ${item.Brand}</a></li>
+            `
+            content += `
+            <tr id="${item.Application}_${item.Brand}">
+                <td align="center">${item.Application}</td>
+                <td align="center">${item.Brand}</td>
+                <td><pre style="font-size:10px">${item.Action}</pre></td>
+            </tr>
+            `
+        })
+        strategyBrandList.innerHTML = contentList
+        overviewTbody.innerHTML = content
+    })
+}
+
 function paintChartAnnual(bu, app) {
     overviewContent.style.display = 'flex'
-    axios.get(hostName + 'getCustomer_Ranking_Year.php').then(function (res) {
-        let data = res.data
+    async function annualData() {
+        const data1 = await axios.get(hostName + 'getCustomer_Ranking_Year.php')
+        let qs = Qs
+        axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+        const data2 = await axios.post(hostName + 'getCustomer_Ranking_Month.php', qs.stringify({ Year: thisYear }))
+        return {
+            data1,
+            data2,
+        }
+    }
+    annualData().then((res) => {
+        let data = res.data1.data
         if (bu) {
             if (bu !== 'ALL') data = data.filter((el) => el.BU === bu)
         }
@@ -113,10 +168,50 @@ function paintChartAnnual(bu, app) {
         let arrMarkPoint = []
         dataYear.forEach((year, index) => {
             let obj = {}
-            let d = data.filter((el) => el.YEAR === year)
-            let total = d.length
-            let overTarget = d.filter((el) => el.SCORE === '達標').length
-            let value = ((overTarget / total) * 100).toFixed(0)
+            let d
+            let total
+            let overTarget
+            let value
+            if (Number(year) !== thisYear) {
+                d = data.filter((el) => el.YEAR === year)
+                total = d.length
+
+                overTarget = d.filter((el) => el.SCORE === '達標').length
+                value = ((overTarget / total) * 100).toFixed(0)
+            } else {
+                data = res.data2.data
+                if (bu) {
+                    switch (bu) {
+                        case 'TV':
+                            data = data.filter((el) => el.Application === 'TV')
+                            break
+                        case 'ITI':
+                            data = data.filter(
+                                (el) =>
+                                    el.Application === 'IAVM' || el.Application === 'MONITOR' || el.Application === 'NB'
+                            )
+                            break
+                        case 'MD':
+                            data = data.filter(
+                                (el) =>
+                                    el.Application === 'CE' || el.Application === 'MP' || el.Application === 'TABLET'
+                            )
+                            break
+                        case 'AA':
+                            data = data.filter((el) => el.Application === 'AA-BD4')
+                            break
+                        default:
+                            break
+                    }
+                }
+                if (app) data = data.filter((el) => el.Application === app)
+                d = data.filter((el) => el.Year === year)
+                d = d.filter((el) => Number(el.Month) === thisMonth)
+                total = d.length
+
+                overTarget = d.filter((el) => el.Lamp === 'G').length
+                value = ((overTarget / total) * 100).toFixed(0)
+            }
             obj.value = `${value}%`
             obj.yAxis = value
             obj.xAxis = index
@@ -133,7 +228,7 @@ function paintChartAnnual(bu, app) {
     })
 }
 function paintChartProduct() {
-    axios.get(hostName + 'cq-warroom/getProductAchivementRate.php').then(function (res) {
+    axios.get(hostName + 'getProductAchivementRate.php').then(function (res) {
         let data = res.data
         let obj = {}
         obj.xAxis = data.item
@@ -160,11 +255,10 @@ function getOptionBU() {
         console.log(data)
         let dataBU = Array.from(new Set(data.map((el) => el.BU)))
         let dataApplication = Array.from(new Set(data.map((el) => el.APPLICATION)))
-        console.log('BU', dataBU)
-        console.log('App', dataApplication)
         const selectorBU = document.querySelector('#selectorBU')
         const selectorApp = document.querySelector('#selectorApp')
         function renderBuOption() {
+            selectorBU.innerHTML = ''
             dataBU.forEach((bu, index) => {
                 if (index === 0) selectorBU.innerHTML += '<option value="ALL">ALL</option>'
                 selectorBU.innerHTML += `
@@ -533,4 +627,17 @@ tableRank.addEventListener('click', function (e) {
         myModal.show()
     }
 })
+// back to top
+const backToTop = document.querySelector('#backToTop')
+window.onscroll = function () {
+    scrollFunction()
+}
+
+function scrollFunction() {
+    if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+        backToTop.style.display = 'block'
+    } else {
+        backToTop.style.display = 'none'
+    }
+}
 // http://tw071273p/getCustomer_Ranking_Month.php

@@ -12,7 +12,7 @@ body {
 }
 #main {
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
 }
 
 .content {
@@ -26,7 +26,7 @@ body {
     margin: 0 10px;
     background-color: white;
     border-radius: 10px;
-    width: 100%;
+    width: 90%;
     height: calc(100vh - 30px);
     position: relative;
 }
@@ -41,7 +41,6 @@ body {
     font-weight: bolder;
     color: #666699;
     font-size: 3vw;
-    text-shadow: #c0c0c0 0.3em 0.1em 0.2em;
 }
 .big-title {
     font-size: 5.5vw !important;
@@ -147,7 +146,7 @@ span.title {
 /* right part */
 
 .right-col {
-    flex-grow: 1;
+    width: 88%;
     margin: 0 10px;
     padding: 1% 0 0 0;
     /* display: flex; */
@@ -240,12 +239,16 @@ span.title {
     padding: 0 10px 10px;
 }
 /* overview content */
+
 .overview-content {
-    display: flex;
+    display: none;
     margin-top: 5px;
-    padding: 0 10px;
-    height: calc(100vh - 50px - 15vw);
+    padding: 0 10px 10px;
+}
+.overview-main {
+    display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 .chart-block {
     background-color: white;
@@ -266,6 +269,7 @@ span.title {
 }
 .chart {
     flex-grow: 1;
+    height: 20vw;
     margin: 0 2vw;
 }
 .selector-box {
@@ -287,6 +291,50 @@ span.title {
 }
 .text-selector {
     font-size: 1vw;
+}
+/* overview table */
+.overview-table-block {
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 1vw;
+}
+.overview-table {
+    width: 95%;
+    margin: 1vw auto;
+}
+.overview-table thead {
+    background-color: #007979;
+    color: white;
+    white-space: nowrap;
+}
+.overview-table,
+.overview-table td,
+.overview-table th {
+    border: 1px solid #f0f0f0;
+    padding: 10px;
+}
+/* strategy-list */
+.strategy-brand-list {
+    list-style: none;
+    display: flex;
+    margin-top: 10px;
+}
+.strategy-brand-list li > a {
+    text-decoration: none;
+    color: #a0a0a0;
+    padding: 5px;
+}
+.strategy-brand-list li > a:hover {
+    color: gray;
+    border-bottom: 1px solid #d0d0d0;
+}
+.strategy-brand-list li + li {
+    margin-left: 10px;
+}
+.strategy-brand-list li + li::before {
+    content: '/ ';
+    color: #a0a0a0;
 }
 /* main part */
 .rate-main {
@@ -358,7 +406,7 @@ span.title {
 .bu-title {
     display: flex;
     flex-flow: column nowrap;
-    margin-right: 1vw;
+    margin-right: 0.5vw;
 }
 .bu-title > div {
     text-align: center;
@@ -377,7 +425,8 @@ span.title {
 .customer > div {
     height: 3vw;
     display: flex;
-    justify-content: center;
+    text-align: end;
+    justify-content: flex-end;
     align-items: center;
 }
 .flex-center-center {
@@ -512,4 +561,22 @@ span.title {
     color: white;
     font-size: 18px;
     letter-spacing: 2px;
+}
+/* Back to Top */
+#backToTop {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    z-index: 99;
+    border: 3px solid gray; /* Remove borders */
+    background-color: rgba(104, 103, 103, 0.1);
+    color: gray;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 18px;
+}
+#backToTop:hover {
+    color: black;
 }
