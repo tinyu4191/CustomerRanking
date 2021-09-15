@@ -1,6 +1,6 @@
 console.log('Customer Rank')
 // API host name
-const hostName = 'http://tw071273p/'
+const hostName = 'http://tw071273p/cq-warroom/'
 // Date
 let date = new Date()
 let thisYear = date.getFullYear()
@@ -178,7 +178,7 @@ function paintChartAnnual(bu, app) {
     })
 }
 function paintChartProduct() {
-    axios.get(hostName + 'cq-warroom/getProductAchivementRate.php').then(function (res) {
+    axios.get(hostName + 'getProductAchivementRate.php').then(function (res) {
         let data = res.data
         let obj = {}
         obj.xAxis = data.item
