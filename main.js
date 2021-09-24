@@ -130,18 +130,31 @@ function paintTableStrategy() {
         let contentList = ''
         dataUnTragetRender.forEach((item) => {
             contentList += `
-            <li><a href="#${item.Application}_${item.Brand}">${item.Application} ${item.Brand}</a></li>
+            <li id="${item.Application}_${item.Brand.replace('*', '')}_a">${item.Application} ${item.Brand}</li>
             `
             content += `
-            <tr id="${item.Application}_${item.Brand}">
+            <tr id="${item.Application}_${item.Brand.replace('*', '')}">
                 <td align="center">${item.Application}</td>
                 <td align="center">${item.Brand}</td>
-                <td><pre style="font-size:10px">${item.Action}</pre></td>
+                <td><pre>${item.Action}</pre></td>
             </tr>
             `
         })
         strategyBrandList.innerHTML = contentList
         overviewTbody.innerHTML = content
+        strategyBrandList.addEventListener('click', function (e) {
+            let target = e.target
+            if (target.matches('li')) {
+                const id = target.id.replace('_a', '')
+                console.log(id)
+                $('html,body').animate(
+                    {
+                        scrollTop: $(`#${id}`).offset().top,
+                    },
+                    800
+                )
+            }
+        })
     })
 }
 

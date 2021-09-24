@@ -12,7 +12,6 @@ body {
 }
 #main {
     width: 100%;
-    /* height: 100%; */
 }
 
 .content {
@@ -315,18 +314,27 @@ span.title {
     border: 1px solid #f0f0f0;
     padding: 10px;
 }
+.overview-tbody tr {
+    height: 100vh;
+}
+.overview-tbody td {
+    font-size: 1vw;
+}
+
 /* strategy-list */
 .strategy-brand-list {
     list-style: none;
     display: flex;
     margin-top: 10px;
 }
-.strategy-brand-list li > a {
+.strategy-brand-list li {
     text-decoration: none;
     color: #a0a0a0;
     padding: 5px;
+    font-size: 1vw;
+    cursor: pointer;
 }
-.strategy-brand-list li > a:hover {
+.strategy-brand-list li:hover {
     color: gray;
     border-bottom: 1px solid #d0d0d0;
 }
