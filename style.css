@@ -318,7 +318,10 @@ span.title {
     height: 100vh;
 }
 .overview-tbody td {
-    font-size: 1vw;
+    font-size: 1.3vw;
+}
+.overview-tbody pre {
+    white-space: pre-wrap;
 }
 
 /* strategy-list */
