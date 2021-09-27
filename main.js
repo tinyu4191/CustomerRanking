@@ -123,7 +123,6 @@ function paintTableStrategy() {
             })
             dataUnTragetRender = dataUnTragetRender.concat(data)
         })
-        console.log(dataUnTragetRender)
         const overviewTbody = document.querySelector('.overview-tbody')
         const strategyBrandList = document.querySelector('.strategy-brand-list')
         let content = ''
@@ -243,8 +242,6 @@ function paintChartAnnual(bu, app) {
 function paintChartProduct(theme) {
     axios.get(hostName + 'getProductAchivementRate.php').then(function (res) {
         let data = res.data
-
-        console.log(data)
         let obj = {}
         const chartProduct = document.querySelector('.chart-product')
         theme = theme || '2D'
@@ -263,10 +260,8 @@ function paintChartProduct(theme) {
             obj.series = data.bardata
             showChartProduct(chartProduct, obj)
         } else {
-            console.log(thisYear, lastYear)
             obj.xAxis = data.item
             obj.yAxis = [monthList[thisMonth - 1], lastYear]
-            console.log(data.bardata)
             data.bardata.reverse()
             const value = []
             const color = ['#F4A869', '#8FB5E4', '#B4A3C8', '#E7BAB9', '#FED7B7']
@@ -279,7 +274,6 @@ function paintChartProduct(theme) {
                 })
             })
             obj.value = value
-            console.log(obj)
             showChartProduct3D(chartProduct, obj)
         }
     })
@@ -288,7 +282,6 @@ function paintChartProduct(theme) {
 function getOptionBU() {
     axios.get(hostName + 'getCustomer_Ranking_Year.php').then(function (res) {
         let data = res.data
-        console.log(data)
         let dataBU = Array.from(new Set(data.map((el) => el.BU)))
         let dataApplication = Array.from(new Set(data.map((el) => el.APPLICATION)))
         const selectorBU = document.querySelector('#selectorBU')
@@ -584,8 +577,6 @@ function showChartProduct(dom, data) {
 
 function showChartProduct3D(dom, data) {
     let myChart = echarts.init(dom)
-    console.log('3D value:', data.value)
-
     let option
     option = {
         // tooltip: {},
@@ -607,7 +598,7 @@ function showChartProduct3D(dom, data) {
             boxWidth: 200,
             boxDepth: 80,
             viewControl: {
-                beta: 20,
+                beta: 10,
                 alpha: 25,
             },
             light: {
