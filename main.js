@@ -51,7 +51,7 @@ navBar.addEventListener('click', function (params) {
             rateBu.innerText = 'ALL'
             getOptionBU()
             paintChartAnnual()
-            paintChartProduct()
+            paintChartProduct('3D')
             renderOverviewContent()
         }
     }
@@ -240,25 +240,48 @@ function paintChartAnnual(bu, app) {
         showCustomer_Ranking_YearChart(chartAnnual, obj)
     })
 }
-function paintChartProduct() {
+function paintChartProduct(theme) {
     axios.get(hostName + 'getProductAchivementRate.php').then(function (res) {
         let data = res.data
+
+        console.log(data)
         let obj = {}
-        obj.xAxis = data.item
-        data.bardata.forEach((d) => {
-            if (d.name === 'Last_M') d.name = monthList[thisMonth - 2]
-            else if (d.name == 'This_M') d.name = monthList[thisMonth - 1]
-            d.type = 'bar'
-            d.label = {
-                show: true,
-                position: 'top',
-                formatter: '{c}%',
-            }
-        })
-        obj.series = data.bardata
-        console.log(obj.series)
         const chartProduct = document.querySelector('.chart-product')
-        showChartProduct(chartProduct, obj)
+        theme = theme || '2D'
+        if (theme === '2D') {
+            obj.xAxis = data.item
+            data.bardata.forEach((d) => {
+                if (d.name === 'Last_M') d.name = monthList[thisMonth - 2]
+                else if (d.name == 'This_M') d.name = monthList[thisMonth - 1]
+                d.type = 'bar'
+                d.label = {
+                    show: true,
+                    position: 'top',
+                    formatter: '{c}%',
+                }
+            })
+            obj.series = data.bardata
+            showChartProduct(chartProduct, obj)
+        } else {
+            console.log(thisYear, lastYear)
+            obj.xAxis = data.item
+            obj.yAxis = [monthList[thisMonth - 1], lastYear]
+            console.log(data.bardata)
+            data.bardata.reverse()
+            const value = []
+            const color = ['#F4A869', '#8FB5E4', '#B4A3C8', '#E7BAB9', '#FED7B7']
+            data.bardata.forEach((item, x) => {
+                item.data.forEach((e, y) => {
+                    value.push({
+                        value: [y, x, e],
+                        itemStyle: { color: color[y] },
+                    })
+                })
+            })
+            obj.value = value
+            console.log(obj)
+            showChartProduct3D(chartProduct, obj)
+        }
     })
 }
 
@@ -549,6 +572,80 @@ function showChartProduct(dom, data) {
             },
         ],
         series: data.series,
+    }
+
+    myChart.setOption(option)
+    setTimeout(function () {
+        window.addEventListener('resize', () => {
+            myChart.resize()
+        })
+    }, 200)
+}
+
+function showChartProduct3D(dom, data) {
+    let myChart = echarts.init(dom)
+    console.log('3D value:', data.value)
+
+    let option
+    option = {
+        // tooltip: {},
+        xAxis3D: {
+            name: '',
+            type: 'category',
+            data: data.xAxis,
+        },
+        yAxis3D: {
+            name: '',
+            type: 'category',
+            data: data.yAxis,
+        },
+        zAxis3D: {
+            name: '',
+            type: 'value',
+        },
+        grid3D: {
+            boxWidth: 200,
+            boxDepth: 80,
+            viewControl: {
+                beta: 20,
+                alpha: 25,
+            },
+            light: {
+                main: {
+                    intensity: 1.2,
+                    shadow: true,
+                },
+                ambient: {
+                    intensity: 0.3,
+                },
+            },
+        },
+        series: [
+            {
+                type: 'bar3D',
+                data: data.value,
+                shading: 'lambert',
+                barSize: 20,
+                label: {
+                    show: true,
+                    fontSize: 16,
+                    borderWidth: 1,
+                    color: 'black',
+                    formatter: function (e) {
+                        return `${e.value[2]}%`
+                    },
+                },
+                // emphasis: {
+                //     label: {
+                //         fontSize: 20,
+                //         color: '#900',
+                //     },
+                //     itemStyle: {
+                //         color: '#900',
+                //     },
+                // },
+            },
+        ],
     }
 
     myChart.setOption(option)
