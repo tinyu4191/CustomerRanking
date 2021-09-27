@@ -635,13 +635,10 @@ function showChartProduct3D(dom, data) {
                         return `${e.value[2]}%`
                     },
                 },
+                // itemStyle: { opacity: 0.8 },
                 // emphasis: {
-                //     label: {
-                //         fontSize: 20,
-                //         color: '#900',
-                //     },
                 //     itemStyle: {
-                //         color: '#900',
+                //         opacity: 1,
                 //     },
                 // },
             },
