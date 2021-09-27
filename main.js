@@ -613,7 +613,7 @@ function showChartProduct3D(dom, data) {
             light: {
                 main: {
                     intensity: 1.2,
-                    shadow: true,
+                    shadow: false,
                 },
                 ambient: {
                     intensity: 0.3,
