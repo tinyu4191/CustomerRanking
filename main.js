@@ -85,18 +85,12 @@ function renderOverviewContent() {
     paintTableStrategy()
     let qs = Qs
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-    axios.post(hostName + 'getCustomer_Ranking_Month.php', qs.stringify({ Year: thisYear })).then(function (res) {
+    axios.post(hostName + 'getCustomer_Ranking_Year.php', qs.stringify({ Year: thisYear })).then(function (res) {
         let data = res.data
-        let dataThisYear = data.filter((el) => el.Year === String(thisYear))
-        let dataLastMonth = (function () {
-            let month = dataThisYear.map((el) => el.Month)
-            month = Array.from(new Set(month))
-            let lastMonth = month[month.length - 1]
-            let data = dataThisYear.filter((el) => el.Month === lastMonth)
-            return data
-        })()
-        let countOverTarget = dataLastMonth.filter((el) => el.Lamp === 'G').length
-        let total = dataLastMonth.length
+        let dataThisYear = data.filter((el) => el.YEAR === String(thisYear))
+
+        let countOverTarget = dataThisYear.filter((el) => el.SCORE === '達標').length
+        let total = dataThisYear.length
         calRankRate(countOverTarget, total)
         renderOutOf(countOverTarget, total)
     })
@@ -184,46 +178,12 @@ function paintChartAnnual(bu, app) {
             let total
             let overTarget
             let value
-            if (Number(year) !== thisYear) {
-                d = data.filter((el) => el.YEAR === year)
-                total = d.length
+            d = data.filter((el) => el.YEAR === year)
+            total = d.length
 
-                overTarget = d.filter((el) => el.SCORE === '達標').length
-                value = ((overTarget / total) * 100).toFixed(0)
-            } else {
-                data = res.data2.data
-                if (bu) {
-                    switch (bu) {
-                        case 'TV':
-                            data = data.filter((el) => el.Application === 'TV')
-                            break
-                        case 'ITI':
-                            data = data.filter(
-                                (el) =>
-                                    el.Application === 'IAVM' || el.Application === 'MONITOR' || el.Application === 'NB'
-                            )
-                            break
-                        case 'MD':
-                            data = data.filter(
-                                (el) =>
-                                    el.Application === 'CE' || el.Application === 'MP' || el.Application === 'TABLET'
-                            )
-                            break
-                        case 'AA':
-                            data = data.filter((el) => el.Application === 'AA-BD4')
-                            break
-                        default:
-                            break
-                    }
-                }
-                if (app) data = data.filter((el) => el.Application === app)
-                d = data.filter((el) => el.Year === year)
-                d = d.filter((el) => Number(el.Month) === thisMonth)
-                total = d.length
+            overTarget = d.filter((el) => el.SCORE === '達標').length
+            value = ((overTarget / total) * 100).toFixed(0)
 
-                overTarget = d.filter((el) => el.Lamp === 'G').length
-                value = ((overTarget / total) * 100).toFixed(0)
-            }
             obj.value = `${value}%`
             obj.yAxis = value
             obj.xAxis = index
@@ -451,7 +411,6 @@ function paintTableRank(buClicked) {
         renderOutOf(countOverTarget, totalCust)
     })
 }
-paintTableRank(buClicked)
 function calRankRate(count, total) {
     const rankRate = document.querySelector('.rank-rate')
     let rate = (count / total) * 100
@@ -649,7 +608,7 @@ const myModal = new bootstrap.Modal(document.querySelector('#mainModal'))
 const modalTitle = document.querySelector('.modal-title')
 const modalBody = document.querySelector('.modal-body')
 tableRank.addEventListener('click', function (e) {
-    if (!e.target.matches('.null')) {
+    if (e.target.matches('.circle') && !e.target.matches('.null')) {
         let clickedIndex = e.target.classList[2]
         let clickedItem = arrBuCust[clickedIndex]
         let year = clickedItem.year
