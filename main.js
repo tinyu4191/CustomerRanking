@@ -46,7 +46,7 @@ navBar.addEventListener('click', function (params) {
         if (target.innerText !== 'Overview') {
             rateBu.innerText = target.innerText
             buClicked = target.innerText
-            paintTableRank(buClicked)
+            // paintTableRank(buClicked)
         } else {
             rateBu.innerText = 'ALL'
             getOptionBU()
@@ -76,7 +76,7 @@ function backIndex() {
 function changeRightCol() {
     index.style.display = 'none'
     rightCol.style.display = 'flex'
-    rateContent.style.display = 'none'
+    // rateContent.style.display = 'none'
     overviewContent.style.display = 'none'
 }
 

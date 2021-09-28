@@ -235,7 +235,7 @@ span.title {
     position: absolute;
 }
 .rate-content {
-    display: none;
+    /* display: none; */
     padding: 0 10px 10px;
 }
 /* overview content */
@@ -356,7 +356,7 @@ span.title {
     flex-flow: column nowrap;
 }
 .main-title {
-    display: none;
+    /* display: none; */
     line-height: 1.6vw;
     padding: 20px 0 0 30px;
     height: auto;
@@ -404,19 +404,19 @@ span.title {
 }
 .e {
     min-height: 58px;
-    width: 10%;
+    width: 12%;
 }
 .main-customer {
     display: flex;
     flex-flow: column nowrap;
-    width: 10%;
+    width: 12%;
 }
 .table-title {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 .bu-title {
-    display: flex;
+    display: none;
     flex-flow: column nowrap;
     margin-right: 0.5vw;
 }
@@ -430,9 +430,15 @@ span.title {
     padding: 0 5px;
 }
 .customer,
-.editor {
+.editor,
+.rank-title {
     display: flex;
     flex-flow: column nowrap;
+}
+.rank-title-actual,
+.rank-title-forecast {
+    height: 1.5vw;
+    font-size: 0.8vw;
 }
 .customer > div {
     height: 3vw;
@@ -456,7 +462,7 @@ span.title {
 .table-month {
     display: flex;
     align-items: center;
-    width: 90%;
+    width: 88%;
     height: auto;
 }
 .table-month {
@@ -494,7 +500,7 @@ span.title {
     height: 3vw;
 }
 .table-row {
-    height: 3vw;
+    height: 1.5vw;
     display: flex;
     /* border: 1px solid #f0f0f0;
     border-radius: 99em; */
@@ -514,8 +520,8 @@ span.title {
     align-items: center;
 }
 .circle {
-    height: 2vw;
-    width: 2vw;
+    height: 1.2vw;
+    width: 1.2vw;
     /* margin: 0.3vw 0.5vh; */
 
     cursor: pointer;
