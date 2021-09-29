@@ -28,6 +28,13 @@ const rightCol = document.querySelector('.right-col')
 const titleLogo = document.querySelector('.title-logo')
 const rateContent = document.querySelector('.rate-content')
 const overviewContent = document.querySelector('.overview-content')
+const selectScoreBox = document.querySelector('.select-score-box')
+const selectBuBox = document.querySelector('.select-bu-box')
+const tableMonth = document.querySelector('.table-month')
+// 月份
+const contentTableMonth = monthList.map((e) => `<div>${e}</div>`)
+tableMonth.innerHTML = contentTableMonth.concat(contentTableMonth).join('')
+
 // BU APP參數
 let buSelected = 'ALL'
 let appSelected = 'ALL'
@@ -56,7 +63,19 @@ navBar.addEventListener('click', function (params) {
         }
     }
 })
-
+selectScoreBox.addEventListener('click', (e) => {
+    let target = e.target
+    if (target.matches('.score-item')) target.classList.toggle('selected')
+})
+selectBuBox.addEventListener('click', (e) => {
+    let target = e.target
+    if (target.matches('.bu-item')) {
+        for (let i = 0; i < selectBuBox.children.length; i++) {
+            if (selectBuBox.children[i].matches('.selected')) selectBuBox.children[i].classList.remove('selected')
+        }
+        target.classList.toggle('selected')
+    }
+})
 // backIndex 回首頁
 
 titleLogo.addEventListener('click', function () {
