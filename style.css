@@ -400,7 +400,7 @@ span.title {
     align-items: center;
 }
 .select-bu-box > div {
-    width: 7vw;
+    width: 8vw;
     height: 70%;
     display: flex;
     justify-content: center;
@@ -416,6 +416,8 @@ span.title {
 }
 .bu-item.selected {
     background-color: #666699;
+    pointer-events: none;
+    cursor: none;
 }
 .main-table {
     display: flex;
@@ -435,8 +437,8 @@ span.title {
 }
 .main-table-content {
     width: 100%;
-    max-height: calc(100vh - 1vw - 308px);
-    overflow-y: overlay;
+    /* max-height: calc(100vh - 1vw - 308px);
+    overflow-y: overlay; */
     margin-top: 58px;
     display: flex;
     flex-flow: row nowrap;
@@ -518,9 +520,8 @@ span.title {
     height: 3vw;
     display: flex;
     text-align: end;
-    font-size: 1.1vw;
     font-weight: bolder;
-    justify-content: flex-end;
+    text-align: left;
     align-items: center;
 }
 .flex-center-center {
@@ -583,6 +584,9 @@ span.title {
     border-radius: 99em; */
 }
 .table-row.forecast {
+    border-bottom: 1px solid #d0d0d0;
+}
+.table-row.bottom-line {
     border-bottom: 1px solid #d0d0d0;
 }
 .table-row > div {
