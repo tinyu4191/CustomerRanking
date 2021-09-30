@@ -494,12 +494,12 @@ function renderSelectBuBox(bu) {
 function calRankRate(count, total) {
     const rankRate = document.querySelector('.rank-rate')
     let rate = (count / total) * 100
-    if (rate <= 0) return ''
+    if (!score.includes('Forecast')) return ''
     else rankRate.innerText = `${rate.toFixed(0)}%`
 }
 function renderOutOf(count, total) {
     const rankDescription = document.querySelector('.rank-description')
-    if (count <= 0) return ''
+    if (!score.includes('Forecast')) return ''
     else rankDescription.innerText = `${count} out of ${total}`
 }
 
