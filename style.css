@@ -663,6 +663,9 @@ span.title {
     font-size: 18px;
     letter-spacing: 2px;
 }
+.modal-issue-pre {
+    white-space: pre-wrap;
+}
 /* Back to Top */
 #backToTop {
     display: none;

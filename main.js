@@ -752,7 +752,7 @@ mainMiddle.addEventListener('click', function (e) {
                   `
                     if (index === 0) {
                         tbodyContent += `
-                          <td rowspan="${data.length}"><pre style="font-size:14px">${item.Action}</pre></td>
+                          <td rowspan="${data.length}"><pre class="modal-issue-pre" style="font-size:14px">${item.Action}</pre></td>
                         `
                     }
                     tbodyContent += '</tr>'
