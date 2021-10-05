@@ -145,11 +145,19 @@ function paintTableStrategy() {
     axios.post(hostName + 'getCustomer_Ranking_Year.php').then(function (res) {
         let data = res.data
         let dataThisMonth = data.filter((el) => Number(el.YEAR) === thisYear && el.SCORE === '未達標')
+        let sortingList = ['TV', 'ITI', 'MD', 'AA']
+        dataThisMonth = (() => {
+            let arr = []
+
+            sortingList.forEach((index) => {
+                arr.push(...dataThisMonth.filter((el) => el.BU === index))
+            })
+            return arr
+        })()
         let dataUnTragetRender = []
         dataThisMonth.forEach((el) => {
             dataUnTragetRender.push({
                 Year: el.YEAR,
-                // Month: el.Month,
                 Application: el.APPLICATION,
                 Brand: el.CUSTOMER,
                 Action: el.Action,
