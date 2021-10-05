@@ -91,7 +91,7 @@ selectScoreBox.addEventListener('click', (e) => {
     if (score.length === 0) score.push('Actual', 'Forecast')
 
     console.log(score)
-    paintTableRank(buClicked)
+    paintTableRank(buClicked, false)
 })
 selectBuBox.addEventListener('click', (e) => {
     let target = e.target
@@ -339,7 +339,8 @@ function getOptionBU() {
     })
 }
 
-function paintTableRank(buClicked) {
+function paintTableRank(buClicked, action = true) {
+    console.log(action)
     rateContent.style.display = 'block'
     axios.post(hostName + 'getCustomer_Ranking_Month.php', qs.stringify({ Year: thisYear })).then(function (res) {
         let data = res.data
@@ -420,19 +421,17 @@ function paintTableRank(buClicked) {
                     for (let i = level.length; i < 24; i++) {
                         level.push('')
                     }
-                    if (actrualOrNot.length === 1 && change === 'Y') {
+                    if (actrualOrNot.length === 1 && change === 'N') {
                         row += '<div class="table-row actual bottom-line">'
                         rowRankTitle += '<div class="rank-title-actual">Actual</div>'
-                        count += 1
-                        totalCust += 1
                     } else if (change === 'Y') {
                         row += '<div class="table-row forecast">'
                         rowRankTitle += '<div class="rank-title-forecast">Forecast</div>'
+                        count += 1
+                        totalCust += 1
                     } else if (change === 'N') {
                         row += '<div class="table-row actual">'
                         rowRankTitle += '<div class="rank-title-actual">Actual</div>'
-                        count += 1
-                        totalCust += 1
                     }
                     level.forEach((el, index) => {
                         let obj = {}
@@ -478,8 +477,10 @@ function paintTableRank(buClicked) {
         buTitle.innerHTML = rowBuTitle
         rankTitle.innerHTML = rowRankTitle
 
-        calRankRate(countOverTarget, totalCust)
-        renderOutOf(countOverTarget, totalCust)
+        if (action === true) {
+            calRankRate(countOverTarget, totalCust)
+            renderOutOf(countOverTarget, totalCust)
+        }
     })
 }
 
@@ -496,13 +497,11 @@ function renderSelectBuBox(bu) {
 function calRankRate(count, total) {
     const rankRate = document.querySelector('.rank-rate')
     let rate = (count / total) * 100
-    if (!score.includes('Forecast')) return ''
-    else rankRate.innerText = `${rate.toFixed(0)}%`
+    rankRate.innerText = `${rate.toFixed(0)}%`
 }
 function renderOutOf(count, total) {
     const rankDescription = document.querySelector('.rank-description')
-    if (!score.includes('Forecast')) return ''
-    else rankDescription.innerText = `${count} out of ${total}`
+    rankDescription.innerText = `${count} out of ${total}`
 }
 
 function showCustomer_Ranking_YearChart(dom, data) {
