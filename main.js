@@ -372,9 +372,7 @@ function paintTableRank(buClicked, action = true) {
         let row = ''
         let rowCust = ''
         let rowEditor = ''
-        let rowBuTitle = ''
         let rowRankTitle = ''
-        let type = 'odd'
         let countOverTarget = 0
         let totalCust = 0
         let countUnderTarget = 0
@@ -385,7 +383,6 @@ function paintTableRank(buClicked, action = true) {
         }
         arrBuCust.length = 0
         dataApp.forEach((bu) => {
-            let count = 0
             let indexData = 0
             dataCustomer.forEach((brand, indexBu) => {
                 actrualOrNot.forEach((change) => {
@@ -427,7 +424,6 @@ function paintTableRank(buClicked, action = true) {
                     } else if (change === 'Y') {
                         row += '<div class="table-row forecast">'
                         rowRankTitle += '<div class="rank-title-forecast">Forecast</div>'
-                        count += 1
                         totalCust += 1
                     } else if (change === 'N') {
                         row += '<div class="table-row actual">'
@@ -463,18 +459,10 @@ function paintTableRank(buClicked, action = true) {
                 if (dataBrand.length < 1) return ''
                 rowCust += `<div>${brand}</div>`
             })
-            if (type === 'odd') {
-                rowBuTitle += `<div style="height:${count * 3}vw">${bu}</div>`
-                type = 'even'
-            } else {
-                rowBuTitle += `<div style="height:${count * 3}vw; background-color:#BCBCD2;">${bu}</div>`
-                type = 'odd'
-            }
         })
         mainMiddle.innerHTML = row
         rankCustomer.innerHTML = rowCust
         listEditor.innerHTML = rowEditor
-        buTitle.innerHTML = rowBuTitle
         rankTitle.innerHTML = rowRankTitle
 
         if (action === true) {
