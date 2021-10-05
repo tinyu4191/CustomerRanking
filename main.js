@@ -142,24 +142,18 @@ function renderOverviewContent() {
 }
 
 function paintTableStrategy() {
-    axios.post(hostName + 'getCustomer_Ranking_Month.php', qs.stringify({ Year: thisYear })).then(function (res) {
+    axios.post(hostName + 'getCustomer_Ranking_Year.php').then(function (res) {
         let data = res.data
-        let dataThisMonth = data.filter((el) => Number(el.Year) === thisYear && el.Predict === 'Y')
-        dataThisMonth = dataThisMonth.filter((el) => Number(el.Month) === theNewestMonth)
-        const sortList = ['TV', 'IAVM', 'MONITOR', 'NB', 'CE', 'MP', 'TABLET', 'AA-BD4']
+        let dataThisMonth = data.filter((el) => Number(el.YEAR) === thisYear && el.SCORE === '未達標')
         let dataUnTragetRender = []
-        sortList.forEach((e) => {
-            let data = dataThisMonth.filter((el) => el.Application === e && el.Lamp !== 'G')
-            data = data.map((el) => {
-                return {
-                    Year: el.Year,
-                    Month: el.Month,
-                    Application: el.Application,
-                    Brand: el.Brand,
-                    Action: el.Action,
-                }
+        dataThisMonth.forEach((el) => {
+            dataUnTragetRender.push({
+                Year: el.YEAR,
+                // Month: el.Month,
+                Application: el.APPLICATION,
+                Brand: el.CUSTOMER,
+                Action: el.Action,
             })
-            dataUnTragetRender = dataUnTragetRender.concat(data)
         })
         const overviewTbody = document.querySelector('.overview-tbody')
         const strategyBrandList = document.querySelector('.strategy-brand-list')
@@ -661,7 +655,7 @@ function showChartProduct3D(dom, data) {
                 barSize: 20,
                 label: {
                     show: true,
-                    fontSize: 16,
+                    fontSize: 14,
                     borderWidth: 1,
                     color: 'black',
                     formatter: function (e) {
@@ -743,7 +737,7 @@ mainMiddle.addEventListener('click', function (e) {
                     tbodyContent += `
                   <tr>
                     <td class="text-center">${item.Brand}</td>
-                    <td>${item.Items}</td>
+                    <td width="15%">${item.Items}</td>
                     <td class="text-center">${item.Target}</td>
                     <td class="text-center">${item.Value}</td>
                     <td class="text-center">${item.Total_Score}</td>
@@ -752,7 +746,7 @@ mainMiddle.addEventListener('click', function (e) {
                   `
                     if (index === 0) {
                         tbodyContent += `
-                          <td rowspan="${data.length}"><pre class="modal-issue-pre" style="font-size:14px">${item.Action}</pre></td>
+                          <td rowspan="${data.length}" class="td-action"><pre class="modal-issue-pre" style="font-size:14px">${item.Action}</pre></td>
                         `
                     }
                     tbodyContent += '</tr>'

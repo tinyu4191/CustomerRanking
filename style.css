@@ -647,6 +647,7 @@ span.title {
 }
 .table-modal {
     width: 100%;
+    word-break: break-all;
 }
 .table-modal,
 .table-modal th,
@@ -662,6 +663,9 @@ span.title {
     color: white;
     font-size: 18px;
     letter-spacing: 2px;
+}
+.td-action {
+    width: 50%;
 }
 .modal-issue-pre {
     white-space: pre-wrap;
