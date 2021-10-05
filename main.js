@@ -1,25 +1,36 @@
 console.log('Customer Rank')
 // API host name
 const hostName = 'http://tw071273p/cq-warroom/'
+let qs = Qs
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 // Date
 let date = new Date()
 let thisYear = date.getFullYear()
 let lastYear = thisYear - 1
 const monthList = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 let thisMonth = date.getMonth() + 1
+
+let theNewestMonth
+async function getNewestMonth() {
+    const { data } = await axios.post(hostName + 'getCustomer_Ranking_Month.php', qs.stringify({ Year: thisYear }))
+    let dataThisMonth = data.filter((el) => Number(el.Year) === thisYear && el.Predict === 'Y')
+    let arr = Math.max(...Array.from(new Set(dataThisMonth.map((el) => el.Month))))
+    theNewestMonth = arr
+    blockThisMonth.innerText = monthList[theNewestMonth - 1]
+}
+getNewestMonth()
 // render date
 const blockThisMonth = document.querySelector('.block-this-month')
 const blockThisYear = document.querySelector('.block-this-year')
 const tableThisYear = document.querySelector('.this-year')
 const tableLastYear = document.querySelector('.last-year')
-blockThisMonth.innerText = monthList[thisMonth - 1]
 blockThisYear.innerText = thisYear
 tableThisYear.innerText = thisYear
 tableLastYear.innerText = lastYear
 // DOM
 const navBar = document.querySelector('.nav-bar')
 const rateBu = document.querySelector('#rate-bu')
-const tableRank = document.querySelector('#table-rank')
+const mainMiddle = document.querySelector('.main-middle')
 const rankCustomer = document.querySelector('#rank-customer')
 const listEditor = document.querySelector('.editor')
 const buTitle = document.querySelector('.bu-title')
@@ -28,12 +39,23 @@ const rightCol = document.querySelector('.right-col')
 const titleLogo = document.querySelector('.title-logo')
 const rateContent = document.querySelector('.rate-content')
 const overviewContent = document.querySelector('.overview-content')
+const selectScoreBox = document.querySelector('.select-score-box')
+const selectBuBox = document.querySelector('.select-bu-box')
+const tableMonth = document.querySelector('.table-month')
+const rankTitle = document.querySelector('.rank-title')
+// 月份
+const contentTableMonth = monthList.map((e) => `<div>${e}</div>`)
+tableMonth.innerHTML = contentTableMonth.concat(contentTableMonth).join('')
+
 // BU APP參數
 let buSelected = 'ALL'
 let appSelected = 'ALL'
 // clickBuCust
 let arrBuCust = []
 let buClicked = ''
+// 實績&預測
+let score = ['Actual', 'Forecast']
+let scoreBu = ''
 navBar.addEventListener('click', function (params) {
     let target = params.target
     if (target.matches('.list-content')) {
@@ -46,6 +68,7 @@ navBar.addEventListener('click', function (params) {
         if (target.innerText !== 'Overview') {
             rateBu.innerText = target.innerText
             buClicked = target.innerText
+            scoreBu = ''
             paintTableRank(buClicked)
         } else {
             rateBu.innerText = 'ALL'
@@ -56,7 +79,31 @@ navBar.addEventListener('click', function (params) {
         }
     }
 })
+selectScoreBox.addEventListener('click', (e) => {
+    let target = e.target
+    if (target.matches('.score-item')) target.classList.toggle('selected')
+    let length = selectScoreBox.children.length
+    score.length = 0
+    for (i = 0; i < length; i++) {
+        let child = selectScoreBox.children[i]
+        if (child.matches('.selected')) score.push(child.innerText)
+    }
+    if (score.length === 0) score.push('Actual', 'Forecast')
 
+    console.log(score)
+    paintTableRank(buClicked)
+})
+selectBuBox.addEventListener('click', (e) => {
+    let target = e.target
+    if (target.matches('.bu-item')) {
+        for (let i = 0; i < selectBuBox.children.length; i++) {
+            if (selectBuBox.children[i].matches('.selected')) selectBuBox.children[i].classList.remove('selected')
+        }
+        target.classList.toggle('selected')
+        scoreBu = target.innerText
+        paintTableRank(buClicked)
+    }
+})
 // backIndex 回首頁
 
 titleLogo.addEventListener('click', function () {
@@ -83,12 +130,10 @@ function changeRightCol() {
 function renderOverviewContent() {
     overviewContent.style.display = 'block'
     paintTableStrategy()
-    let qs = Qs
-    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
     axios.post(hostName + 'getCustomer_Ranking_Year.php', qs.stringify({ Year: thisYear })).then(function (res) {
         let data = res.data
         let dataThisYear = data.filter((el) => el.YEAR === String(thisYear))
-
+        console.log(dataThisYear)
         let countOverTarget = dataThisYear.filter((el) => el.SCORE === '達標').length
         let total = dataThisYear.length
         calRankRate(countOverTarget, total)
@@ -97,25 +142,18 @@ function renderOverviewContent() {
 }
 
 function paintTableStrategy() {
-    let qs = Qs
-    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-    axios.post(hostName + 'getCustomer_Ranking_Month.php', qs.stringify({ Year: thisYear })).then(function (res) {
+    axios.post(hostName + 'getCustomer_Ranking_Year.php').then(function (res) {
         let data = res.data
-        let dataThisMonth = data.filter((el) => Number(el.Year) === thisYear && Number(el.Month) === thisMonth)
-        const sortList = ['TV', 'IAVM', 'MONITOR', 'NB', 'CE', 'MP', 'TABLET', 'AA-BD4']
+        let dataThisMonth = data.filter((el) => Number(el.YEAR) === thisYear && el.SCORE === '未達標')
         let dataUnTragetRender = []
-        sortList.forEach((e) => {
-            let data = dataThisMonth.filter((el) => el.Application === e && el.Lamp !== 'G')
-            data = data.map((el) => {
-                return {
-                    Year: el.Year,
-                    Month: el.Month,
-                    Application: el.Application,
-                    Brand: el.Brand,
-                    Action: el.Action,
-                }
+        dataThisMonth.forEach((el) => {
+            dataUnTragetRender.push({
+                Year: el.YEAR,
+                // Month: el.Month,
+                Application: el.APPLICATION,
+                Brand: el.CUSTOMER,
+                Action: el.Action,
             })
-            dataUnTragetRender = dataUnTragetRender.concat(data)
         })
         const overviewTbody = document.querySelector('.overview-tbody')
         const strategyBrandList = document.querySelector('.strategy-brand-list')
@@ -155,8 +193,6 @@ function paintChartAnnual(bu, app) {
     overviewContent.style.display = 'flex'
     async function annualData() {
         const data1 = await axios.get(hostName + 'getCustomer_Ranking_Year.php')
-        let qs = Qs
-        axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
         const data2 = await axios.post(hostName + 'getCustomer_Ranking_Month.php', qs.stringify({ Year: thisYear }))
         return {
             data1,
@@ -208,8 +244,8 @@ function paintChartProduct(theme) {
         if (theme === '2D') {
             obj.xAxis = data.item
             data.bardata.forEach((d) => {
-                if (d.name === 'Last_M') d.name = monthList[thisMonth - 2]
-                else if (d.name == 'This_M') d.name = monthList[thisMonth - 1]
+                if (d.name === 'Last_M') d.name = monthList[theNewestMonth - 2]
+                else if (d.name == 'This_M') d.name = monthList[theNewestMonth - 1]
                 d.type = 'bar'
                 d.label = {
                     show: true,
@@ -221,7 +257,7 @@ function paintChartProduct(theme) {
             showChartProduct(chartProduct, obj)
         } else {
             obj.xAxis = data.item
-            obj.yAxis = [monthList[thisMonth - 1], lastYear]
+            obj.yAxis = [monthList[theNewestMonth - 1], lastYear]
             data.bardata.reverse()
             const value = []
             const color = ['#F4A869', '#8FB5E4', '#B4A3C8', '#E7BAB9', '#FED7B7']
@@ -297,10 +333,9 @@ function getOptionBU() {
 
 function paintTableRank(buClicked) {
     rateContent.style.display = 'block'
-    let qs = Qs
-    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
     axios.post(hostName + 'getCustomer_Ranking_Month.php', qs.stringify({ Year: thisYear })).then(function (res) {
         let data = res.data
+        console.log('New: ', data)
         let dataBu = (function (bu) {
             let bus = []
             if (bu === 'TV') {
@@ -312,6 +347,7 @@ function paintTableRank(buClicked) {
             } else if (bu === 'AA') {
                 bus.push('AA-BD4')
             }
+            if (!scoreBu) renderSelectBuBox(bus)
             let arr = []
             bus.forEach((bu) => {
                 let dataBu = data.filter((el) => el.Application === bu)
@@ -319,6 +355,7 @@ function paintTableRank(buClicked) {
             })
             return arr
         })(buClicked)
+        if (scoreBu) dataBu = dataBu.filter((e) => e.Application === scoreBu)
         let dataCustomer = dataBu.map((el) => el.Brand)
         dataCustomer = Array.from(new Set(dataCustomer))
         let dataApp = dataBu.map((el) => el.Application)
@@ -327,40 +364,79 @@ function paintTableRank(buClicked) {
         let rowCust = ''
         let rowEditor = ''
         let rowBuTitle = ''
+        let rowRankTitle = ''
         let type = 'odd'
         let countOverTarget = 0
         let totalCust = 0
         let countUnderTarget = 0
-
+        let actrualOrNot = []
+        if (score) {
+            if (score.includes('Actual')) actrualOrNot.push('N')
+            if (score.includes('Forecast')) actrualOrNot.push('Y')
+        }
         arrBuCust.length = 0
         dataApp.forEach((bu) => {
             let count = 0
             let indexData = 0
             dataCustomer.forEach((brand, indexBu) => {
-                let dataBrand = dataBu.filter((el) => el.Application == bu && el.Brand === brand)
-                if (dataBrand.length < 1) return ''
-                let level = dataBrand.map((el) => el.Lamp)
-                let target = dataBrand.map((el) => el.Lamp)
-                let rank = dataBrand.map((el) => el.Rank)
-                if (target[target.length - 1] === 'G') countOverTarget += 1
-                else countUnderTarget += 1
-                for (let i = level.length; i < 24; i++) {
-                    level.push('')
-                }
-                row += '<div class="table-row">'
-                level.forEach((el, index) => {
-                    let obj = {}
-                    if (dataBrand[index]) {
-                        obj = {
-                            year: dataBrand[index].Year,
-                            month: dataBrand[index].Month,
-                            application: dataBrand[index].Application,
-                            brand: dataBrand[index].Brand,
-                        }
-                    }
-                    arrBuCust.push(obj)
+                actrualOrNot.forEach((change) => {
+                    let dataBrand = dataBu.filter(
+                        (el) => el.Application == bu && el.Brand === brand && el.Predict === change
+                    )
+                    if (dataBrand.length < 1) return ''
+                    dataBrand = ((dataBrand) => {
+                        let years = [lastYear, thisYear]
+                        let months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                        let arr = []
+                        years.forEach((y) => {
+                            months.forEach((m) => {
+                                let data = dataBrand.filter((e) => e.Year === String(y) && e.Month === String(m))
+                                if (data.length > 0) {
+                                    arr = arr.concat(data)
+                                } else arr = arr.concat({})
+                            })
+                        })
+                        return arr
+                    })(dataBrand)
+                    let level = dataBrand.map((el) => el.Lamp)
+                    let rank = dataBrand.map((el) => el.Rank)
 
-                    if (index !== target.length - 1) {
+                    if (change === 'Y') {
+                        let data = dataBrand.filter(
+                            (e) => e.Year === String(thisYear) && e.Month === String(theNewestMonth)
+                        )
+                        if (data[0].Lamp === 'G') countOverTarget += 1
+                        else countUnderTarget += 1
+                    }
+
+                    for (let i = level.length; i < 24; i++) {
+                        level.push('')
+                    }
+                    if (actrualOrNot.length === 1 && change === 'Y') {
+                        row += '<div class="table-row actual bottom-line">'
+                        rowRankTitle += '<div class="rank-title-actual">Actual</div>'
+                        count += 1
+                        totalCust += 1
+                    } else if (change === 'Y') {
+                        row += '<div class="table-row forecast">'
+                        rowRankTitle += '<div class="rank-title-forecast">Forecast</div>'
+                    } else if (change === 'N') {
+                        row += '<div class="table-row actual">'
+                        rowRankTitle += '<div class="rank-title-actual">Actual</div>'
+                        count += 1
+                        totalCust += 1
+                    }
+                    level.forEach((el, index) => {
+                        let obj = {}
+                        if (dataBrand[index]) {
+                            obj = {
+                                year: dataBrand[index].Year,
+                                month: dataBrand[index].Month,
+                                application: dataBrand[index].Application,
+                                brand: dataBrand[index].Brand,
+                            }
+                        }
+                        arrBuCust.push(obj)
                         if (el === 'G') {
                             row += `<div><div class="circle green ${indexData}"></div></div>`
                         } else if (el === 'Y') {
@@ -372,27 +448,13 @@ function paintTableRank(buClicked) {
                         }
                         // index對應
                         indexData += 1
-                    } else {
-                        let rankLastMonth = ''
-                        if (rank[index].match(/[^A-Z][^None]/)) rankLastMonth = rank[index]
-                        if (el === 'G') {
-                            row += `<div><div class="circle green ${indexData} last-div">${rankLastMonth}</div></div>`
-                        } else if (el === 'Y') {
-                            row += `<div><div class="circle yellow ${indexData} last-div">${rankLastMonth}</div></div>`
-                        } else if (el === 'R') {
-                            row += `<div><div class="circle red ${indexData} last-div">${rankLastMonth}</div></div>`
-                        } else {
-                            row += `<div><div class="circle null last-div">${rankLastMonth}</div></div>`
-                        }
-                        // index對應
-                        indexData += 1
-                    }
+                    })
+                    row += '</div>'
+                    rowEditor += '<div class="flex-center-center"><i class="fas fa-edit"></i></div>'
                 })
-                row += '</div>'
+                let dataBrand = dataBu.filter((el) => el.Application == bu && el.Brand === brand)
+                if (dataBrand.length < 1) return ''
                 rowCust += `<div>${brand}</div>`
-                rowEditor += '<div class="flex-center-center"><i class="fas fa-edit"></i></div>'
-                count += 1
-                totalCust += 1
             })
             if (type === 'odd') {
                 rowBuTitle += `<div style="height:${count * 3}vw">${bu}</div>`
@@ -402,23 +464,37 @@ function paintTableRank(buClicked) {
                 type = 'odd'
             }
         })
-        tableRank.innerHTML = row
+        mainMiddle.innerHTML = row
         rankCustomer.innerHTML = rowCust
         listEditor.innerHTML = rowEditor
         buTitle.innerHTML = rowBuTitle
+        rankTitle.innerHTML = rowRankTitle
 
         calRankRate(countOverTarget, totalCust)
         renderOutOf(countOverTarget, totalCust)
     })
 }
+
+function renderSelectBuBox(bu) {
+    selectBuBox.innerHTML = ''
+    bu.forEach((e, index, arr) => {
+        if (index === 0) {
+            scoreBu = scoreBu === '' ? e : scoreBu
+            selectBuBox.innerHTML += `<div class="bu-item selected">${e}</div>`
+        } else selectBuBox.innerHTML += `<div class="bu-item">${e}</div>`
+    })
+}
+
 function calRankRate(count, total) {
     const rankRate = document.querySelector('.rank-rate')
     let rate = (count / total) * 100
-    rankRate.innerText = `${rate.toFixed(0)}%`
+    if (!score.includes('Forecast')) return ''
+    else rankRate.innerText = `${rate.toFixed(0)}%`
 }
 function renderOutOf(count, total) {
     const rankDescription = document.querySelector('.rank-description')
-    rankDescription.innerText = `${count} out of ${total}`
+    if (!score.includes('Forecast')) return ''
+    else rankDescription.innerText = `${count} out of ${total}`
 }
 
 function showCustomer_Ranking_YearChart(dom, data) {
@@ -428,9 +504,9 @@ function showCustomer_Ranking_YearChart(dom, data) {
 
     option = {
         grid: {
-            top: '20%',
+            top: '25%',
             left: '3%',
-            right: '4%',
+            right: '6%',
             bottom: '3%',
             containLabel: true,
         },
@@ -452,6 +528,7 @@ function showCustomer_Ranking_YearChart(dom, data) {
                 textStyle: {
                     fontSize: 14,
                 },
+                margin: 25,
             },
         },
         series: [
@@ -578,7 +655,7 @@ function showChartProduct3D(dom, data) {
                 barSize: 20,
                 label: {
                     show: true,
-                    fontSize: 16,
+                    fontSize: 14,
                     borderWidth: 1,
                     color: 'black',
                     formatter: function (e) {
@@ -607,7 +684,7 @@ function showChartProduct3D(dom, data) {
 const myModal = new bootstrap.Modal(document.querySelector('#mainModal'))
 const modalTitle = document.querySelector('.modal-title')
 const modalBody = document.querySelector('.modal-body')
-tableRank.addEventListener('click', function (e) {
+mainMiddle.addEventListener('click', function (e) {
     if (e.target.matches('.circle') && !e.target.matches('.null')) {
         let clickedIndex = e.target.classList[2]
         let clickedItem = arrBuCust[clickedIndex]
@@ -619,8 +696,6 @@ tableRank.addEventListener('click', function (e) {
         modalTitle.innerText = `${year} / ${monthFormat} ${application} ${brand}：未達標對策`
 
         console.log('url :', hostName + 'getBrand_Score.php')
-        let qs = Qs
-        axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
         axios
             .post(
                 hostName + 'getBrand_Score.php',
@@ -662,7 +737,7 @@ tableRank.addEventListener('click', function (e) {
                     tbodyContent += `
                   <tr>
                     <td class="text-center">${item.Brand}</td>
-                    <td>${item.Items}</td>
+                    <td width="15%">${item.Items}</td>
                     <td class="text-center">${item.Target}</td>
                     <td class="text-center">${item.Value}</td>
                     <td class="text-center">${item.Total_Score}</td>
@@ -671,7 +746,7 @@ tableRank.addEventListener('click', function (e) {
                   `
                     if (index === 0) {
                         tbodyContent += `
-                          <td rowspan="${data.length}"><pre style="font-size:14px">${item.Action}</pre></td>
+                          <td rowspan="${data.length}" class="td-action"><pre class="modal-issue-pre" style="font-size:14px">${item.Action}</pre></td>
                         `
                     }
                     tbodyContent += '</tr>'
