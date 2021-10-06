@@ -69,6 +69,10 @@ navBar.addEventListener('click', function (params) {
             rateBu.innerText = target.innerText
             buClicked = target.innerText
             scoreBu = ''
+            score = ['Actual', 'Forecast'] //score 初始
+            document.querySelectorAll('.score-item').forEach((e) => {
+                e.classList.remove('selected')
+            })
             paintTableRank(buClicked)
         } else {
             rateBu.innerText = 'ALL'
