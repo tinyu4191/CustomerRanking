@@ -12,6 +12,7 @@ body {
 }
 #main {
     width: 100%;
+    position: relative;
 }
 
 .content {
@@ -19,6 +20,40 @@ body {
     display: flex;
 }
 
+/* link to onpage */
+.link-to-onpage {
+    position: absolute;
+    right: 1vw;
+    z-index: 99;
+    cursor: pointer;
+}
+.switch {
+    width: 60px;
+    height: 25px;
+    background-color: white;
+    border-radius: 25px;
+    border: 3px solid #d0d0d0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: gray;
+    font-weight: 700;
+}
+.switch-inner {
+    position: relative;
+    background-color: #ccc;
+    height: 25px;
+    width: 25px;
+    border-radius: 99em;
+}
+.switch-inner::before {
+    content: 'II';
+    position: absolute;
+    left: -90%;
+    font-size: 16px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    line-height: 23px;
+}
 /* index */
 
 .index {

@@ -89,7 +89,6 @@ navBar.addEventListener('click', function (params) {
 })
 selectScoreBox.addEventListener('click', (e) => {
     let target = e.target
-    console.log(e)
     if (target.type === 'checkbox') e.path[1].children[1].classList.toggle('selected')
     let length = selectScoreBox.children.length
     score.length = 0
@@ -100,15 +99,9 @@ selectScoreBox.addEventListener('click', (e) => {
     if (score.length === 0) score.push('Actual', 'Forecast')
     paintTableRank(buClicked, false)
 })
-// const cbxChange = (e) => {
-//     // e.path[1].children[1].classList.toggle('selected')
-// }
-// cbxActual.addEventListener('change', cbxChange)
-// cbxForecast.addEventListener('change', cbxChange)
 
 selectBuBox.addEventListener('click', (e) => {
     let target = e.target
-    console.log(target)
     if (target.matches('.bu-item')) {
         for (let i = 0; i < selectBuBox.children.length; i++) {
             if (selectBuBox.children[i].matches('.selected')) selectBuBox.children[i].classList.remove('selected')
@@ -387,9 +380,6 @@ function paintTableRank(buClicked, action = true) {
         let rowCust = ''
         let rowEditor = ''
         let rowRankTitle = ''
-        let countOverTarget = 0
-        let totalCust = 0
-        let countUnderTarget = 0
         let actrualOrNot = []
         if (score) {
             if (score.includes('Actual')) actrualOrNot.push('N')
@@ -419,15 +409,6 @@ function paintTableRank(buClicked, action = true) {
                         return arr
                     })(dataBrand)
                     let level = dataBrand.map((el) => el.Lamp)
-                    let rank = dataBrand.map((el) => el.Rank)
-
-                    if (change === 'Y') {
-                        let data = dataBrand.filter(
-                            (e) => e.Year === String(thisYear) && e.Month === String(theNewestMonth)
-                        )
-                        if (data[0].Lamp === 'G') countOverTarget += 1
-                        else countUnderTarget += 1
-                    }
 
                     for (let i = level.length; i < 24; i++) {
                         level.push('')
@@ -438,7 +419,6 @@ function paintTableRank(buClicked, action = true) {
                     } else if (change === 'Y') {
                         row += '<div class="table-row forecast">'
                         rowRankTitle += '<div class="rank-title-forecast">Forecast</div>'
-                        totalCust += 1
                     } else if (change === 'N') {
                         row += '<div class="table-row actual">'
                         rowRankTitle += '<div class="rank-title-actual">Actual</div>'
@@ -480,6 +460,12 @@ function paintTableRank(buClicked, action = true) {
         rankTitle.innerHTML = rowRankTitle
 
         if (action === true) {
+            let data = dataBu.filter(
+                (el) => el.Predict === 'Y' && el.Year === String(thisYear) && el.Month === String(theNewestMonth)
+            )
+
+            let countOverTarget = data.filter((el) => el.Lamp === 'G').length
+            let totalCust = data.length
             calRankRate(countOverTarget, totalCust)
             renderOutOf(countOverTarget, totalCust)
         }
