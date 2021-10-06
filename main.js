@@ -43,6 +43,8 @@ const selectScoreBox = document.querySelector('.select-score-box')
 const selectBuBox = document.querySelector('.select-bu-box')
 const tableMonth = document.querySelector('.table-month')
 const rankTitle = document.querySelector('.rank-title')
+const cbxActual = document.querySelector('#cbx-actual')
+const cbxForecast = document.querySelector('#cbx-forecast')
 // 月份
 const contentTableMonth = monthList.map((e) => `<div>${e}</div>`)
 tableMonth.innerHTML = contentTableMonth.concat(contentTableMonth).join('')
@@ -73,6 +75,8 @@ navBar.addEventListener('click', function (params) {
             document.querySelectorAll('.score-item').forEach((e) => {
                 e.classList.remove('selected')
             })
+            cbxActual.checked = true
+            cbxForecast.checked = true
             paintTableRank(buClicked)
         } else {
             rateBu.innerText = 'ALL'
@@ -89,14 +93,18 @@ selectScoreBox.addEventListener('click', (e) => {
     let length = selectScoreBox.children.length
     score.length = 0
     for (i = 0; i < length; i++) {
-        let child = selectScoreBox.children[i]
+        let child = selectScoreBox.children[i].children[1]
         if (child.matches('.selected')) score.push(child.innerText)
     }
     if (score.length === 0) score.push('Actual', 'Forecast')
-
-    console.log(score)
     paintTableRank(buClicked, false)
 })
+const cbxChange = (e) => {
+    e.path[1].children[1].classList.toggle('selected')
+}
+cbxActual.addEventListener('click', cbxChange)
+cbxForecast.addEventListener('click', cbxChange)
+
 selectBuBox.addEventListener('click', (e) => {
     let target = e.target
     if (target.matches('.bu-item')) {
@@ -243,7 +251,9 @@ function paintChartAnnual(bu, app) {
         obj.xAxis = dataYear
         obj.value = arr
         obj.markPoint = arrMarkPoint
+        if (bu || app) obj.min = 0
         const chartAnnual = document.querySelector('.chart-annual')
+
         showCustomer_Ranking_YearChart(chartAnnual, obj)
     })
 }
@@ -553,6 +563,7 @@ function showCustomer_Ranking_YearChart(dom, data) {
             },
         ],
     }
+    if (data.min !== undefined) option.yAxis.min = data.min
     myChart.setOption(option)
     setTimeout(function () {
         window.addEventListener('resize', () => {
@@ -602,7 +613,6 @@ function showChartProduct(dom, data) {
         ],
         series: data.series,
     }
-
     myChart.setOption(option)
     setTimeout(function () {
         window.addEventListener('resize', () => {

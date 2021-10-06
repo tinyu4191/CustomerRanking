@@ -384,18 +384,23 @@ span.title {
 .select-score-box > div {
     width: 80%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     height: 40%;
     color: white;
     font-size: 0.8vw;
+}
+.score-item {
+    flex: 1 0 0;
+    text-align: center;
+    margin-left: 5px;
     border-radius: 15px;
     cursor: pointer;
 }
-.score-item.selected {
+/* .score-item.selected {
     position: relative;
-}
-.score-item.selected::before {
+} */
+/* .score-item.selected::before {
     content: '';
     position: absolute;
     color: black;
@@ -406,7 +411,7 @@ span.title {
     width: 20px;
     height: 20px;
     left: -1.8vw;
-}
+} */
 .select-bu-box {
     display: flex;
     align-items: center;
