@@ -75,8 +75,8 @@ navBar.addEventListener('click', function (params) {
             document.querySelectorAll('.score-item').forEach((e) => {
                 e.classList.remove('selected')
             })
-            cbxActual.checked = true
-            cbxForecast.checked = true
+            cbxActual.checked = false
+            cbxForecast.checked = false
             paintTableRank(buClicked)
         } else {
             rateBu.innerText = 'ALL'
@@ -89,7 +89,8 @@ navBar.addEventListener('click', function (params) {
 })
 selectScoreBox.addEventListener('click', (e) => {
     let target = e.target
-    if (target.matches('.score-item')) target.classList.toggle('selected')
+    console.log(e)
+    if (target.type === 'checkbox') e.path[1].children[1].classList.toggle('selected')
     let length = selectScoreBox.children.length
     score.length = 0
     for (i = 0; i < length; i++) {
@@ -99,14 +100,15 @@ selectScoreBox.addEventListener('click', (e) => {
     if (score.length === 0) score.push('Actual', 'Forecast')
     paintTableRank(buClicked, false)
 })
-const cbxChange = (e) => {
-    e.path[1].children[1].classList.toggle('selected')
-}
-cbxActual.addEventListener('click', cbxChange)
-cbxForecast.addEventListener('click', cbxChange)
+// const cbxChange = (e) => {
+//     // e.path[1].children[1].classList.toggle('selected')
+// }
+// cbxActual.addEventListener('change', cbxChange)
+// cbxForecast.addEventListener('change', cbxChange)
 
 selectBuBox.addEventListener('click', (e) => {
     let target = e.target
+    console.log(target)
     if (target.matches('.bu-item')) {
         for (let i = 0; i < selectBuBox.children.length; i++) {
             if (selectBuBox.children[i].matches('.selected')) selectBuBox.children[i].classList.remove('selected')
@@ -354,11 +356,9 @@ function getOptionBU() {
 }
 
 function paintTableRank(buClicked, action = true) {
-    console.log(action)
     rateContent.style.display = 'block'
     axios.post(hostName + 'getCustomer_Ranking_Month.php', qs.stringify({ Year: thisYear })).then(function (res) {
         let data = res.data
-        console.log('New: ', data)
         let dataBu = (function (bu) {
             let bus = []
             if (bu === 'TV') {

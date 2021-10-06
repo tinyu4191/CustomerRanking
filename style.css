@@ -390,12 +390,14 @@ span.title {
     color: white;
     font-size: 0.8vw;
 }
+.select-score-box input {
+    cursor: pointer;
+}
 .score-item {
     flex: 1 0 0;
     text-align: center;
     margin-left: 5px;
     border-radius: 15px;
-    cursor: pointer;
 }
 /* .score-item.selected {
     position: relative;
