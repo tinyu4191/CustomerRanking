@@ -525,6 +525,7 @@ function showCustomer_Ranking_YearChart(dom, data) {
                 },
                 margin: 25,
             },
+            min: 40,
         },
         series: [
             {
