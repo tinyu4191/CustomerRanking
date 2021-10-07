@@ -37,6 +37,7 @@ const buTitle = document.querySelector('.bu-title')
 const index = document.querySelector('.index')
 const rightCol = document.querySelector('.right-col')
 const titleLogo = document.querySelector('.title-logo')
+const blockTitle = document.querySelector('.block-title')
 const rateContent = document.querySelector('.rate-content')
 const overviewContent = document.querySelector('.overview-content')
 const selectScoreBox = document.querySelector('.select-score-box')
@@ -77,9 +78,11 @@ navBar.addEventListener('click', function (params) {
             })
             cbxActual.checked = false
             cbxForecast.checked = false
+            blockTitle.innerText = '重要客戶排名達標率(預估)'
             paintTableRank(buClicked)
         } else {
             rateBu.innerText = 'ALL'
+            blockTitle.innerText = '重要客戶排名達標率'
             getOptionBU()
             paintChartAnnual()
             paintChartProduct('3D')
@@ -275,18 +278,38 @@ function paintChartProduct(theme) {
         } else {
             obj.xAxis = data.item
             obj.yAxis = [monthList[theNewestMonth - 1], lastYear]
-            data.bardata.reverse()
             const value = []
-            const color = ['#F4A869', '#8FB5E4', '#B4A3C8', '#E7BAB9', '#FED7B7']
-            data.bardata.forEach((item, x) => {
+            const color = [
+                '#F4A869',
+                '#8FB5E4',
+                '#B4A3C8',
+                '#E7BAB9',
+                '#FED7B7',
+                '#C18453',
+                '#6F8CB1',
+                '#867994',
+                '#B39090',
+                '#CBAB92',
+            ]
+            let index = 0
+            data.bardata.reverse().forEach((item, x) => {
                 item.data.forEach((e, y) => {
-                    value.push({
-                        value: [y, x, e],
-                        itemStyle: { color: color[y] },
-                    })
+                    if (x === 0) {
+                        value.push({
+                            value: [y, x, e],
+                            itemStyle: { color: color[index] },
+                        })
+                    } else {
+                        value.push({
+                            value: [y, x, e],
+                            itemStyle: { color: color[index] },
+                        })
+                    }
+                    index += 1
                 })
             })
             obj.value = value
+            console.log(obj)
             showChartProduct3D(chartProduct, obj)
         }
     })
@@ -691,7 +714,7 @@ mainMiddle.addEventListener('click', function (e) {
         let brand = clickedItem.brand
         modalTitle.innerText = `${year} / ${monthFormat} ${application} ${brand}：未達標對策`
 
-        console.log('url :', hostName + 'getBrand_Score.php')
+        console.log(year, month, application, brand)
         axios
             .post(
                 hostName + 'getBrand_Score.php',
@@ -699,6 +722,7 @@ mainMiddle.addEventListener('click', function (e) {
             )
             .then(function (res) {
                 let data = res.data
+                console.table(data)
                 let content = ''
                 let theadContent = ''
                 let tbodyContent = ''
@@ -719,6 +743,8 @@ mainMiddle.addEventListener('click', function (e) {
                 </thead>
                 `
                 content += theadContent
+
+                data = data.filter((el) => el.Predict === 'Y')
 
                 tbodyContent += '<tbody>'
                 data.forEach((item, index) => {
