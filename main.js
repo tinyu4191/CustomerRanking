@@ -747,7 +747,7 @@ mainMiddle.addEventListener('click', function (e) {
                 content += theadContent
 
                 data = data.filter((el) => el.Predict === predict)
-
+                if (data.length < 1) return (modalBody.innerHTML = 'Could not find data!')
                 tbodyContent += '<tbody>'
                 data.forEach((item, index) => {
                     let sign = ''
