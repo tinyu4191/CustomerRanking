@@ -223,6 +223,7 @@ function paintChartAnnual(bu, app) {
             if (bu !== 'ALL') data = data.filter((el) => el.BU === bu)
         }
         if (app) data = data.filter((el) => el.APPLICATION === app)
+        console.log(data)
         let dataYear = Array.from(new Set(data.map((el) => el.YEAR))).sort()
         let arr = []
         let arrMarkPoint = []
@@ -235,8 +236,15 @@ function paintChartAnnual(bu, app) {
             d = data.filter((el) => el.YEAR === year)
             total = d.length
 
-            overTarget = d.filter((el) => el.SCORE === '達標').length
-            value = ((overTarget / total) * 100).toFixed(0)
+            overTarget = d.filter((el) => el.SCORE === '達標')
+
+            if (bu === 'ITI' && year === '2020') {
+                console.log(bu, year, overTarget.length, '+1')
+                overTarget.length += 1
+                console.log(overTarget.length)
+            }
+
+            value = ((overTarget.length / total) * 100).toFixed(0)
 
             obj.value = `${value}%`
             obj.yAxis = value
@@ -249,7 +257,50 @@ function paintChartAnnual(bu, app) {
         obj.xAxis = dataYear
         obj.value = arr
         obj.markPoint = arrMarkPoint
-        if (bu || app) obj.min = 0
+        if (bu || app) {
+            obj.min = 0
+            obj.tooltip = {
+                show: true,
+                formatter: function (value) {
+                    let d = data.filter((el) => el.YEAR === value.name)
+                    let overTarget = d.filter((el) => el.SCORE === '達標')
+                    let unTarget = d.filter((el) => el.SCORE !== '達標')
+                    let custOvertarget = Array.from(new Set(overTarget.map((el) => el.CUSTOMER)))
+                    let custUntarget = Array.from(new Set(unTarget.map((el) => el.CUSTOMER)))
+                    if (custOvertarget.length > 3) {
+                        custOvertarget.forEach((e, index, arr) => {
+                            if (index % 3 === 2) arr.splice(index, 0, '<br>')
+                        })
+                    }
+                    return `
+                    <table class="table-tooltip">
+                        <thead>
+                            <tr>
+                                <td>BU</td>
+                                <td>APPLICATION</td>
+                                <td>SCORE</td>
+                                <td>CUSTOMER</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>${bu}</td>
+                                <td>${app || bu}</td>
+                                <td>達標</td>
+                                <td style="text-align:start">${custOvertarget.join(',')}</td>
+                            </tr>
+                            <tr>
+                                <td>${bu}</td>
+                                <td>${app || bu}</td>
+                                <td>未達標</td>
+                                <td style="text-align:start">${custUntarget.join(',')}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    `
+                },
+            }
+        }
         const chartAnnual = document.querySelector('.chart-annual')
 
         showCustomer_Ranking_YearChart(chartAnnual, obj)
@@ -574,6 +625,8 @@ function showCustomer_Ranking_YearChart(dom, data) {
         ],
     }
     if (data.min !== undefined) option.yAxis.min = data.min
+    if (data.tooltip !== undefined) option.tooltip = data.tooltip
+    console.log(option)
     myChart.setOption(option)
     setTimeout(function () {
         window.addEventListener('resize', () => {

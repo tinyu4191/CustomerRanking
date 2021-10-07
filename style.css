@@ -742,3 +742,13 @@ span.title {
 #backToTop:hover {
     color: black;
 }
+
+/* tabel tooltip */
+.table-tooltip {
+}
+.table-tooltip > th,
+td {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #d0d0d0;
+}
