@@ -454,6 +454,7 @@ function paintTableRank(buClicked, action = true) {
                                 month: dataBrand[index].Month,
                                 application: dataBrand[index].Application,
                                 brand: dataBrand[index].Brand,
+                                predict: dataBrand[index].Predict,
                             }
                         }
                         arrBuCust.push(obj)
@@ -712,9 +713,10 @@ mainMiddle.addEventListener('click', function (e) {
         let monthFormat = month < 10 ? `0${month}` : month
         let application = clickedItem.application
         let brand = clickedItem.brand
+        let predict = clickedItem.predict
         modalTitle.innerText = `${year} / ${monthFormat} ${application} ${brand}：未達標對策`
 
-        console.log(year, month, application, brand)
+        console.log(year, month, application, brand, predict)
         axios
             .post(
                 hostName + 'getBrand_Score.php',
@@ -744,7 +746,7 @@ mainMiddle.addEventListener('click', function (e) {
                 `
                 content += theadContent
 
-                data = data.filter((el) => el.Predict === 'Y')
+                data = data.filter((el) => el.Predict === predict)
 
                 tbodyContent += '<tbody>'
                 data.forEach((item, index) => {
