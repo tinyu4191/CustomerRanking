@@ -143,7 +143,6 @@ function renderOverviewContent() {
     axios.post(hostName + 'getCustomer_Ranking_Year.php', qs.stringify({ Year: thisYear })).then(function (res) {
         let data = res.data
         let dataThisYear = data.filter((el) => el.YEAR === String(thisYear))
-        console.log(dataThisYear)
         let countOverTarget = dataThisYear.filter((el) => el.SCORE === '達標').length
         let total = dataThisYear.length
         calRankRate(countOverTarget, total)
@@ -223,7 +222,6 @@ function paintChartAnnual(bu, app) {
             if (bu !== 'ALL') data = data.filter((el) => el.BU === bu)
         }
         if (app) data = data.filter((el) => el.APPLICATION === app)
-        console.log(data)
         let dataYear = Array.from(new Set(data.map((el) => el.YEAR))).sort()
         let arr = []
         let arrMarkPoint = []
@@ -257,6 +255,7 @@ function paintChartAnnual(bu, app) {
         obj.xAxis = dataYear
         obj.value = arr
         obj.markPoint = arrMarkPoint
+
         if (bu || app) {
             obj.min = 0
             obj.tooltip = {
@@ -265,6 +264,8 @@ function paintChartAnnual(bu, app) {
                     let d = data.filter((el) => el.YEAR === value.name)
                     let overTarget = d.filter((el) => el.SCORE === '達標')
                     let unTarget = d.filter((el) => el.SCORE !== '達標')
+                    let appOvertarget = Array.from(new Set(overTarget.map((el) => el.APPLICATION))).sort()
+                    let appUntarget = Array.from(new Set(unTarget.map((el) => el.APPLICATION))).sort()
                     let custOvertarget = Array.from(new Set(overTarget.map((el) => el.CUSTOMER)))
                     let custUntarget = Array.from(new Set(unTarget.map((el) => el.CUSTOMER)))
                     if (custOvertarget.length > 3) {
@@ -272,8 +273,7 @@ function paintChartAnnual(bu, app) {
                             if (index % 3 === 2) arr.splice(index, 0, '<br>')
                         })
                     }
-                    return `
-                    <table class="table-tooltip">
+                    let theadContent = `
                         <thead>
                             <tr>
                                 <td>BU</td>
@@ -282,24 +282,46 @@ function paintChartAnnual(bu, app) {
                                 <td>CUSTOMER</td>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>${bu}</td>
-                                <td>${app || bu}</td>
-                                <td>達標</td>
-                                <td style="text-align:start">${custOvertarget.join(',')}</td>
-                            </tr>
-                            <tr>
-                                <td>${bu}</td>
-                                <td>${app || bu}</td>
-                                <td>未達標</td>
-                                <td style="text-align:start">${custUntarget.join(',')}</td>
-                            </tr>
-                        </tbody>
+                        `
+                    let overTargetContent = ''
+                    appOvertarget.forEach((e) => {
+                        let arr = overTarget.filter((el) => el.APPLICATION === e).map((el) => el.CUSTOMER)
+                        arr.forEach((e, index, arr) => {
+                            if (index % 3 === 2) arr.splice(index, 0, '<br>')
+                        })
+                        overTargetContent += `
+                        <tr>
+                            <td>${bu}</td>
+                            <td>${e}</td>
+                            <td>達標</td>
+                            <td>${arr.join(' ')}</td>
+                        </tr>`
+                    })
+                    let unTargetContent = ''
+                    appOvertarget.forEach((e) => {
+                        let arr = unTarget.filter((el) => el.APPLICATION === e).map((el) => el.CUSTOMER)
+                        arr.forEach((e, index, arr) => {
+                            if (index % 3 === 2) arr.splice(index, 0, '<br>')
+                        })
+                        unTargetContent += `
+                        <tr>
+                            <td>${bu}</td>
+                            <td>${e}</td>
+                            <td>未達標</td>
+                            <td>${arr.join(' ')}</td>
+                        </tr>`
+                    })
+                    let tbodyContent = `<tbody>${overTargetContent}${unTargetContent}</tbody>`
+                    return `
+                    <table class="table-tooltip">
+                        ${theadContent}
+                        ${tbodyContent}
                     </table>
                     `
                 },
             }
+        } else {
+            obj.tooltip = { show: false }
         }
         const chartAnnual = document.querySelector('.chart-annual')
 
@@ -360,7 +382,6 @@ function paintChartProduct(theme) {
                 })
             })
             obj.value = value
-            console.log(obj)
             showChartProduct3D(chartProduct, obj)
         }
     })
@@ -626,7 +647,6 @@ function showCustomer_Ranking_YearChart(dom, data) {
     }
     if (data.min !== undefined) option.yAxis.min = data.min
     if (data.tooltip !== undefined) option.tooltip = data.tooltip
-    console.log(option)
     myChart.setOption(option)
     setTimeout(function () {
         window.addEventListener('resize', () => {
